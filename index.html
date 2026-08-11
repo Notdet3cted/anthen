@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Wedding of Naufal & Shilvia</title>
+  <meta name="description" content="Anda diundang dengan hormat untuk menghadiri upacara pernikahan Naufal & Shilvia pada tanggal 4 Oktober 2026.">
+  <meta property="og:title" content="The Wedding of Naufal & Shilvia">
+  <meta property="og:description" content="Undangan pernikahan Naufal & Shilvia pada 4 Oktober 2026.">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The Wedding of Naufal & Shilvia">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+  <!-- ========== SPLASH SCREEN ========== -->
+  <div class="splash-screen" id="splash">
+    <div class="splash-content">
+      <img alt="logo" class="splash-logo" src="assets/images/logo.png" width="300" height="300">
+      <div class="splash-now-streaming">Pernikahan</div>
+      <div class="splash-save-date">
+        <div class="splash-date">Minggu, 4 Oktober 2026</div>
+        <div class="splash-countdown" id="splash-countdown">
+          <div class="splash-cd-item">
+            <span id="splash-cd-days">00</span>
+            <span class="splash-cd-label">Hari</span>
+          </div>
+          <span class="splash-cd-sep">:</span>
+          <div class="splash-cd-item">
+            <span id="splash-cd-hours">00</span>
+            <span class="splash-cd-label">Jam</span>
+          </div>
+          <span class="splash-cd-sep">:</span>
+          <div class="splash-cd-item">
+            <span id="splash-cd-minutes">00</span>
+            <span class="splash-cd-label">Menit</span>
+          </div>
+          <span class="splash-cd-sep">:</span>
+          <div class="splash-cd-item">
+            <span id="splash-cd-seconds">00</span>
+            <span class="splash-cd-label">Detik</span>
+          </div>
+        </div>
+      </div>
+      <div class="splash-guest">
+        <span class="splash-guest-label">Kepada Yth.</span>
+        <div class="splash-guest-name">
+          <span class="splash-guest-line"></span>
+          <span class="splash-guest-text" id="splash-guest-name">Tamu Undangan</span>
+          <span class="splash-guest-line"></span>
+        </div>
+      </div>
+      <div class="splash-btn">
+        <button class="btn btn-primary btn-sm" id="splash-open-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="white" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>
+          Buka Undangan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== AUDIO ========== -->
+  <audio id="bg-music" src="assets/audio/background-music.mp3" preload="metadata" loop></audio>
+
+  <!-- ========== MUSIC MINI PLAYER ========== -->
+  <div class="music-player" id="music-player">
+    <div class="music-player-inner">
+      <div class="music-player-disc" id="music-disc">
+        <div class="music-disc-ring"></div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="music-player-info">
+        <div class="music-player-title">Married Life</div>
+        <div class="music-player-artist">Michael Giacchino • Up</div>
+      </div>
+      <button class="music-player-btn" id="music-toggle" aria-label="Toggle music">
+        <svg id="music-icon-play" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>
+        <svg id="music-icon-pause" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="display:none"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+      </button>
+    </div>
+    <div class="music-player-progress">
+      <div class="music-player-progress-bar" id="music-progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- ========== TOAST ========== -->
+  <div class="toast toast-success" id="toast">
+    <span class="toast-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    </span>
+    <span id="toast-message">Berhasil!</span>
+  </div>
+
+  <!-- ========== LIGHTBOX ========== -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Previous">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <img id="lightbox-img" src="" alt="Gallery">
+    <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Next">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <div class="lightbox-counter" id="lightbox-counter">1 / 6</div>
+  </div>
+
+  <!-- ========== MAIN APP ========== -->
+  <div class="app-container">
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="section-hero" id="hero">
+      <div class="hero-bg">
+        <img alt="Hero Image" src="assets/images/g14.JPG" width="700" height="700">
+        <div class="hero-gradient"></div>
+        <div class="hero-gradient-overlay"></div>
+      </div>
+      <div class="hero-content">
+        <div class="hero-top">
+          <div class="hero-logo animate-on-scroll scale-in delay-100">
+            <img alt="logo" src="assets/images/logo.png" width="300" height="300">
+          </div>
+          <div class="hero-badge animate-on-scroll delay-200">Coming Soon</div>
+          <h1 class="hero-title animate-on-scroll delay-200">
+            Naufal <span class="accent">&</span> Shilvia
+          </h1>
+          <div class="hero-date animate-on-scroll delay-300">
+            <img alt="top-1" src="assets/images/top1.svg" width="20" height="20">
+            4 Oktober 2026
+          </div>
+          <p class="hero-desc animate-on-scroll delay-400" id="hero-desc-text">
+           Kepada Yth. Tamu Undangan, dengan penuh kebahagiaan, kami mengundang Anda untuk menjadi bagian dari momen istimewa dalam kisah cinta kami pada <span class="accent-date">4 Oktober 2026</span>, serta memberikan doa dan restu bagi perjalanan baru kami bersama.
+          </p>
+        </div>
+        <!-- ===== COUNTDOWN ===== -->
+        <div class="hero-countdown animate-on-scroll delay-450" id="countdown">
+          <div class="countdown-item">
+            <span class="countdown-value" id="cd-days">00</span>
+            <span class="countdown-label">Hari</span>
+          </div>
+          <span class="countdown-sep">:</span>
+          <div class="countdown-item">
+            <span class="countdown-value" id="cd-hours">00</span>
+            <span class="countdown-label">Jam</span>
+          </div>
+          <span class="countdown-sep">:</span>
+          <div class="countdown-item">
+            <span class="countdown-value" id="cd-minutes">00</span>
+            <span class="countdown-label">Menit</span>
+          </div>
+          <span class="countdown-sep">:</span>
+          <div class="countdown-item">
+            <span class="countdown-value" id="cd-seconds">00</span>
+            <span class="countdown-label">Detik</span>
+          </div>
+        </div>
+
+        <div class="hero-actions animate-on-scroll delay-500">
+          <button class="btn btn-primary btn-sm ripple-effect" id="hero-play-btn" aria-label="Putar musik">
+            <svg id="hero-icon-play" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>
+            <svg id="hero-icon-pause" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="display:none"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+            <span id="hero-play-label">Putar</span>
+          </button>
+          <button class="btn btn-outline btn-sm ripple-effect" id="hero-mylist-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+            Selengkapnya
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== QUOTE SECTION ===== -->
+    <section class="section-quote" id="quote">
+      <div class="quote-bg">
+        <img alt="bg" src="assets/images/n-opening.jpg" width="500" height="500">
+        <div class="hero-gradient"></div>
+        <div class="quote-gradient-overlay"></div>
+      </div>
+      <div class="quote-content">
+        <blockquote class="quote-text animate-on-scroll delay-100">
+          Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang.
+        </blockquote>
+        <div class="quote-source animate-on-scroll delay-200">
+          <div class="quote-line"></div>
+          <p class="quote-ref">QS. Ar-Rum : 21</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== COUPLE SECTION ===== -->
+    <section class="section-couple" id="couple">
+      <div class="section-header animate-on-scroll delay-100">
+        <div class="section-header-bar">
+          <div class="section-header-line"></div>
+          <span class="section-header-label">Lead Actor</span>
+        </div>
+        <h2 class="section-header-title">Calon Mempelai</h2>
+        <p class="section-header-sub">Kenali siapa yang akan menikah</p>
+      </div>
+
+      <div class="couple-cards">
+        <!-- Naufal -->
+        <div class="couple-card animate-on-scroll delay-200">
+          <div class="couple-card-photo">
+            <img alt="Naufal" src="assets/images/pria.jpeg" width="200" height="267">
+            <div class="couple-card-photo-overlay"></div>
+            <div class="couple-card-badge">Groom</div>
+          </div>
+          <div class="couple-card-body">
+            <div class="couple-card-initial"><span>N</span></div>
+            <h3 class="couple-card-name">Naufal</h3>
+            <div class="couple-card-subname">Rizqi Arrafi</div>
+            <div class="couple-card-divider"></div>
+            <div class="couple-card-tag">
+              <span>Putra ke 2</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shilvia -->
+        <div class="couple-card animate-on-scroll delay-300">
+          <div class="couple-card-photo">
+            <img alt="Shilvia" src="assets/images/wanita.jpeg" width="200" height="267">
+            <div class="couple-card-photo-overlay"></div>
+            <div class="couple-card-badge">Bride</div>
+          </div>
+          <div class="couple-card-body">
+            <div class="couple-card-initial"><span>S</span></div>
+            <h3 class="couple-card-name">Shilvia</h3>
+            <div class="couple-card-subname">Agatha Punky Widianarti</div>
+            <div class="couple-card-divider"></div>
+            <div class="couple-card-tag">
+              <span>Putri Pertama</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== EVENTS SECTION ===== -->
+    <section class="section-events" id="event">
+      <div class="section-header animate-on-scroll delay-100">
+        <div class="section-header-bar">
+          <div class="section-header-line"></div>
+          <span class="section-header-label">On Schedule</span>
+        </div>
+        <h2 class="section-header-title">Jadwal Acara</h2>
+        <p class="section-header-sub">Save the date, jangan sampai kelewatan!</p>
+      </div>
+
+      <div class="events-list">
+        <!-- Akad Nikah -->
+        <div class="event-card event-card-featured animate-on-scroll delay-200">
+          <div class="event-card-visual">
+            <div class="event-card-visual-bg event-akad-bg"></div>
+            <div class="event-card-visual-overlay"></div>
+            <div class="event-card-badge-row">
+              <span class="event-badge event-badge-type">Akad Nikah</span>
+            </div>
+            <div class="event-card-visual-title">
+              <h3 class="event-visual-name">Akad Nikah</h3>
+              <p class="event-visual-tagline">The Sacred Ceremony</p>
+            </div>
+          </div>
+          <div class="event-card-body">
+            <div class="event-info-grid">
+              <div class="event-info-item">
+                <span class="event-info-label">Tanggal</span>
+                <span class="event-info-value">Minggu, 4 Oktober 2026</span>
+              </div>
+              <div class="event-info-item">
+                <span class="event-info-label">Jam</span>
+                <span class="event-info-value">09.00 WIB</span>
+              </div>
+              <div class="event-info-item event-info-full">
+                <span class="event-info-label">Lokasi</span>
+                <span class="event-info-value">Kediaman Putri</span>
+              </div>
+            </div>
+            <button class="event-map-btn ripple-effect" onclick="window.open('https://maps.google.com/?q=Kediaman+Putri','_blank')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+              Lihat Lokasi
+            </button>
+          </div>
+        </div>
+
+        <!-- Ngunduh Mantu -->
+        <div class="event-card event-card-featured animate-on-scroll delay-300">
+          <div class="event-card-visual">
+            <div class="event-card-visual-bg event-ngunduh-bg"></div>
+            <div class="event-card-visual-overlay"></div>
+            <div class="event-card-badge-row">
+              <span class="event-badge event-badge-type">Ngunduh Mantu</span>
+            </div>
+            <div class="event-card-visual-title">
+              <h3 class="event-visual-name">Ngunduh Mantu</h3>
+              <p class="event-visual-tagline">The Grand Celebration</p>
+            </div>
+          </div>
+          <div class="event-card-body">
+            <div class="event-info-grid">
+              <div class="event-info-item">
+                <span class="event-info-label">Tanggal</span>
+                <span class="event-info-value">Senin, 5 Oktober 2026</span>
+              </div>
+              <div class="event-info-item">
+                <span class="event-info-label">Jam</span>
+                <span class="event-info-value">13.00 - Selesai WIB</span>
+              </div>
+              <div class="event-info-item event-info-full">
+                <span class="event-info-label">Lokasi</span>
+                <span class="event-info-value">Kediaman Pria</span>
+              </div>
+            </div>
+            <button class="event-map-btn ripple-effect" onclick="window.open('https://maps.google.com/?q=Kediaman+Pria','_blank')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+              Lihat Lokasi
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STORY SECTION — WEBTOON CAROUSEL ===== -->
+    <section class="section-story" id="story">
+      <div class="section-header animate-on-scroll delay-100">
+        <div class="section-header-bar">
+          <div class="section-header-line"></div>
+          <span class="section-header-label">Original Series</span>
+        </div>
+        <h2 class="section-header-title">Cerita Kami</h2>
+        <p class="section-header-sub">Season 1 — Baca seperti webtoon 📖</p>
+      </div>
+
+      <div class="story-carousel">
+        <div class="story-card animate-on-scroll delay-100" data-episode="1">
+          <span class="story-card-badge">Eps 1</span>
+          <img alt="Episode 1 — The Meeting" src="assets/story/1.png" loading="lazy" width="400" height="300">
+          <div class="story-card-label">The Meeting</div>
+        </div>
+        <div class="story-card animate-on-scroll delay-200" data-episode="2">
+          <span class="story-card-badge">Eps 2</span>
+          <img alt="Episode 2 — Growing Together" src="assets/story/2.png" loading="lazy" width="400" height="300">
+          <div class="story-card-label">Growing Together</div>
+        </div>
+        <div class="story-card animate-on-scroll delay-300" data-episode="3">
+          <span class="story-card-badge">Eps 3</span>
+          <img alt="Episode 3 — Different Paths" src="assets/story/3.png" loading="lazy" width="400" height="300">
+          <div class="story-card-label">Different Paths</div>
+        </div>
+        <div class="story-card animate-on-scroll delay-400" data-episode="4">
+          <span class="story-card-badge">Eps 4</span>
+          <img alt="Episode 4 — Chasing Dreams" src="assets/story/4.png" loading="lazy" width="400" height="300">
+          <div class="story-card-label">Chasing Dreams</div>
+        </div>
+        <div class="story-card animate-on-scroll delay-500" data-episode="5">
+          <span class="story-card-badge">Eps 5</span>
+          <img alt="Episode 5 — The Realization" src="assets/story/5.png" loading="lazy" width="400" height="300">
+          <div class="story-card-label">The Realization</div>
+        </div>
+        <div class="story-card animate-on-scroll delay-100" data-episode="6">
+          <span class="story-card-badge">Eps 6</span>
+          <img alt="Episode 6 — The Proposal" src="assets/story/6.png" loading="lazy" width="400" height="300">
+          <div class="story-card-label">The Proposal</div>
+        </div>
+        <div class="story-card animate-on-scroll delay-200" data-episode="7">
+          <span class="story-card-badge">Eps 7</span>
+          <img alt="Episode 7 — Forever Begins" src="assets/story/7.png" loading="lazy" width="400" height="300">
+          <div class="story-card-label">Forever Begins</div>
+        </div>
+        <div class="story-card animate-on-scroll delay-300" data-episode="8">
+          <span class="story-card-badge">Eps 8</span>
+          <img alt="Episode 8 — Our Happily Ever After" src="assets/story/8.png" loading="lazy" width="400" height="300">
+          <div class="story-card-label">Our Happily Ever After</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== WEBTOON MODAL ===== -->
+    <div class="story-modal" id="storyModal">
+      <div class="story-modal-inner">
+        <div class="story-modal-header">
+          <h3 id="storyEpisodeTitle">Episode 1</h3>
+          <span class="story-page-indicator" id="storyPageCount">1 / 6</span>
+          <button class="story-modal-close" id="storyClose">&times;</button>
+        </div>
+        <div class="story-pages" id="storyPages"></div>
+        <div class="story-nav-bar">
+          <button class="story-nav-btn" id="storyPrev">&#8249;</button>
+          <button class="story-nav-btn" id="storyNext">&#8250;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== GALLERY SECTION ===== -->
+    <section class="section-gallery" id="gallery">
+      <div class="section-header animate-on-scroll delay-100">
+        <div class="section-header-bar">
+          <div class="section-header-line"></div>
+          <span class="section-header-label">Photo Gallery</span>
+        </div>
+        <h2 class="section-header-title">Galeri</h2>
+        <p class="section-header-sub">Momen-momen indah kami</p>
+      </div>
+
+      <div class="gallery-featured animate-on-scroll delay-100" data-gallery-index="0">
+        <img alt="Featured" src="assets/images/g13.JPG" width="700" height="400">
+        <div class="gallery-featured-overlay">
+          <div class="gallery-featured-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Curated
+          </div>
+          <span class="gallery-featured-label">Foto Pilihan</span>
+        </div>
+      </div>
+
+      <div class="gallery-top-header animate-on-scroll delay-200">
+        <span class="gallery-top-label">TOP 6</span>
+        <span class="gallery-top-sub">Foto terbaik kami</span>
+      </div>
+
+      <div class="gallery-top-grid">
+        <div class="gallery-top-item animate-on-scroll delay-200" data-gallery-index="1">
+          <div class="gallery-top-rank">#1</div>
+          <img alt="Gallery 1" src="assets/images/g1.JPG" width="300" height="400">
+          <div class="gallery-top-item-overlay"></div>
+        </div>
+        <div class="gallery-top-item animate-on-scroll delay-250" data-gallery-index="2">
+          <div class="gallery-top-rank">#2</div>
+          <img alt="Gallery 2" src="assets/images/g7.JPG" width="300" height="400">
+          <div class="gallery-top-item-overlay"></div>
+        </div>
+        <div class="gallery-top-item animate-on-scroll delay-300" data-gallery-index="3">
+          <div class="gallery-top-rank">#3</div>
+          <img alt="Gallery 3" src="assets/images/g3.JPG" width="300" height="400">
+          <div class="gallery-top-item-overlay"></div>
+        </div>
+        <div class="gallery-top-item animate-on-scroll delay-350" data-gallery-index="4">
+          <div class="gallery-top-rank">#4</div>
+          <img alt="Gallery 4" src="assets/images/g8.JPG" width="300" height="400">
+          <div class="gallery-top-item-overlay"></div>
+        </div>
+        <div class="gallery-top-item animate-on-scroll delay-400" data-gallery-index="5">
+          <div class="gallery-top-rank">#5</div>
+          <img alt="Gallery 5" src="assets/images/g6.JPG" width="300" height="400">
+          <div class="gallery-top-item-overlay"></div>
+        </div>
+        <div class="gallery-top-item animate-on-scroll delay-450" data-gallery-index="6">
+          <div class="gallery-top-rank">#6</div>
+          <img alt="Gallery 6" src="assets/images/g12.JPG" width="300" height="400">
+          <div class="gallery-top-item-overlay"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== GIFT SECTION ===== -->
+    <section class="section-gift" id="gift">
+      <div class="section-header animate-on-scroll delay-100">
+        <div class="section-header-bar">
+          <div class="section-header-line"></div>
+          <span class="section-header-label">Wedding Gift</span>
+        </div>
+        <h2 class="section-header-title">Kado</h2>
+        <p class="section-header-sub">Kirim hadiah untuk kedua mempelai</p>
+      </div>
+
+      <button type="button" class="gift-open-btn animate-on-scroll delay-200 ripple-effect" id="gift-open-btn">
+        <span class="gift-open-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+        </span>
+        <span class="gift-open-text">
+          <span class="gift-open-title">Kirim Kado</span>
+          <span class="gift-open-subtitle">Ketuk untuk melihat cara kirim hadiah</span>
+        </span>
+        <span class="gift-open-chevron">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </span>
+      </button>
+    </section>
+
+    <!-- ===== GIFT BOTTOM SHEET MODAL ===== -->
+    <div class="sheet-overlay" id="gift-sheet-overlay">
+      <div class="sheet" id="gift-sheet" role="dialog" aria-modal="true" aria-labelledby="gift-sheet-title">
+        <div class="sheet-handle"></div>
+        <div class="sheet-header">
+          <div class="sheet-header-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+          </div>
+          <div class="sheet-header-text">
+            <div class="sheet-title" id="gift-sheet-title">Wedding Gift</div>
+            <div class="sheet-subtitle" id="gift-sheet-subtitle">Pilih cara mengirim hadiah</div>
+          </div>
+          <button type="button" class="sheet-close-btn" id="gift-sheet-close" aria-label="Tutup">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <div class="sheet-body">
+          <!-- LANGKAH 1: PILIH METODE -->
+          <div class="gift-step" id="gift-choose">
+            <div class="sheet-section-label">Pilih Metode</div>
+            <button type="button" class="gift-choice" data-gift-type="bank">
+              <span class="gift-choice-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </span>
+              <span class="gift-choice-text">
+                <span class="gift-choice-title">Transfer Bank</span>
+                <span class="gift-choice-sub">BCA • Mandiri</span>
+              </span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="gift-choice-arrow"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+
+            <button type="button" class="gift-choice" data-gift-type="kado">
+              <span class="gift-choice-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+              </span>
+              <span class="gift-choice-text">
+                <span class="gift-choice-title">Kado Fisik</span>
+                <span class="gift-choice-sub">Dikirim ke alamat rumah</span>
+              </span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="gift-choice-arrow"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+
+          <!-- LANGKAH 2: DETAIL METODE TERPILIH -->
+          <div class="gift-step" id="gift-detail" hidden>
+            <div class="gift-detail-top">
+              <button type="button" class="gift-back-btn ripple-effect" id="gift-back-btn" aria-label="Kembali">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                Kembali
+              </button>
+              <span class="gift-detail-title" id="gift-detail-title">Detail</span>
+            </div>
+
+            <div id="gift-panel-bank">
+              <div class="sheet-section-label">Rekening</div>
+              <div class="gift-account">
+                <div class="gift-account-logo">BCA</div>
+                <div class="gift-account-info">
+                  <div class="gift-account-label">Bank BCA</div>
+                  <div class="gift-account-number">1234567890</div>
+                  <div class="gift-account-name">a.n Naufal Arrafi</div>
+                </div>
+                <button type="button" class="btn btn-primary gift-copy-btn ripple-effect" data-copy="1234567890">Salin</button>
+              </div>
+              <div class="gift-account">
+                <div class="gift-account-logo">MDR</div>
+                <div class="gift-account-info">
+                  <div class="gift-account-label">Bank Mandiri</div>
+                  <div class="gift-account-number">0987654321</div>
+                  <div class="gift-account-name">a.n Shilvia Agatha</div>
+                </div>
+                <button type="button" class="btn btn-primary gift-copy-btn ripple-effect" data-copy="0987654321">Salin</button>
+              </div>
+              <div class="gift-note">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                <span>Pastikan nama pengirim ditulis agar kami tahu siapa yang memberi. Terima kasih!</span>
+              </div>
+            </div>
+
+            <div id="gift-panel-kado" hidden>
+              <div class="sheet-section-label">Kado Fisik</div>
+              <div class="gift-address">
+                <div class="gift-address-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <div class="gift-address-content">
+                  <div class="gift-address-label">Alamat Rumah</div>
+                  <div class="gift-address-text" id="gift-address-text">Jl. Contoh No. 123, RT 01/RW 02, Kel. Sukamaju, Kec. Menteng, Jakarta Pusat, DKI Jakarta 10310</div>
+                </div>
+                <div class="gift-address-actions">
+                  <button type="button" class="btn btn-primary gift-copy-btn ripple-effect" data-copy="Jl. Contoh No. 123, RT 01/RW 02, Kel. Sukamaju, Kec. Menteng, Jakarta Pusat, DKI Jakarta 10310">Salin</button>
+                  <a class="btn btn-outline gift-map-btn ripple-effect" href="https://maps.google.com/?q=Jl.+Contoh+No.+123+Menteng+Jakarta+Pusat" target="_blank" rel="noopener">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                    Maps
+                  </a>
+                </div>
+              </div>
+              <div class="gift-note">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                <span>Untuk pengiriman kado fisik, mohon konfirmasi terlebih dahulu melalui WhatsApp agar kami dapat menerima dengan baik.</span>
+              </div>
+              <a class="btn btn-primary btn-block ripple-effect gift-wa-btn" id="gift-wa-btn" href="https://wa.me/6281234567890?text=Halo%20Naufal%20%26%20Shilvia%2C%20saya%20ingin%20mengirim%20kado%20fisik%20untuk%20pernikahan%20kalian." target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                Konfirmasi via WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <section class="section-footer" id="footer">
+      <div class="footer-names animate-on-scroll delay-100">
+        Naufal <span class="accent">&</span> Shilvia
+      </div>
+      <div class="footer-date animate-on-scroll delay-200">04 • 10 • 2026</div>
+      <div class="footer-divider animate-on-scroll delay-300"></div>
+      <p class="footer-thanks animate-on-scroll delay-400">
+        Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kami.
+      </p>
+      <div class="footer-credit animate-on-scroll delay-500">
+        &copy; 2026 Naufal & Shilvia Wedding
+      </div>
+    </section>
+
+  </div><!-- /app-container -->
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

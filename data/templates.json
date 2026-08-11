@@ -1,0 +1,14 @@
+{
+  "templates": [
+    {
+      "id": 1,
+      "name": "Undangan Resmi",
+"message": "Assalamu'alaikum Wr. Wb.\n\nKepada Yth. {nama},\n\nTanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dalam acara pernikahan kami:\n\nNaufal Arrafi & Shilvia Agatha\n\n📅 Minggu, 4 Oktober 2026, pukul 09.00 WIB (Akad Nikah)\n🕌 Kediaman Putri\n\n📅 Senin, 5 Oktober 2026, pukul 13.00 WIB - Selesai (Ngunduh Mantu)\n🏠 Kediaman Pria\n\nMerupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.\n\nLink undangan: https://navia.my.id/?to={slug}\n\nWassalamu'alaikum Wr. Wb.\nNaufal & Shilvia"
+    },
+    {
+      "id": 2,
+      "name": "Singkat",
+"message": "Halo {nama}! 👋\n\nKami sekeluarga mengundang kamu untuk hadir di hari bahagia kami 🎉\n\nNaufal 💍 Shilvia\n📅 Minggu, 4 Oktober 2026 (Akad Nikah)\n🕌 Kediaman Putri\n📅 Senin, 5 Oktober 2026 (Ngunduh Mantu)\n🏠 Kediaman Pria\n\nLink undangan: https://navia.my.id/?to={slug}\n\nSampai ketemu di hari H! 😊"
+    }
+  ]
+}

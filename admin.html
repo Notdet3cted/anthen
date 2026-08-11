@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin — Undangan Naufal & Shilvia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0f0f14;
+      color: #e5e5e5;
+      min-height: 100vh;
+    }
+    .admin-header {
+      background: linear-gradient(135deg, #141419, #1c1c24);
+      border-bottom: 1px solid #2a2a34;
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .admin-header h1 {
+      font-size: 20px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .admin-header h1 .logo-dot {
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #E50914, #b00610);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 900; color: #fff;
+    }
+    .admin-header .links a {
+      color: #a3a3ad;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      margin-left: 20px;
+      transition: color .2s;
+    }
+    .admin-header .links a:hover { color: #E50914; }
+    .admin-container { max-width: 1200px; margin: 0 auto; padding: 32px; }
+    .admin-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: #181820;
+      border: 1px solid #262630;
+      border-radius: 14px;
+      padding: 20px;
+    }
+    .stat-card .stat-value { font-size: 28px; font-weight: 800; color: #fff; }
+    .stat-card .stat-label { font-size: 12px; color: #8a8a95; margin-top: 4px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; }
+    .admin-section {
+      background: #181820;
+      border: 1px solid #262630;
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+    .admin-section h2 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .admin-section h2 .section-icon {
+      color: #E50914;
+      display: inline-flex;
+    }
+    .guest-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 16px;
+      border: 1px solid #262630;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      transition: border-color .2s;
+    }
+    .guest-row:hover { border-color: #3a3a46; }
+    .guest-info { display: flex; align-items: center; gap: 12px; }
+    .guest-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #E50914, #b00610);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; color: #fff; font-size: 15px;
+    }
+    .guest-name { font-weight: 600; font-size: 14px; }
+    .guest-slug { font-size: 12px; color: #8a8a95; margin-top: 2px; }
+    .guest-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn {
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 9px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: filter .2s, transform .1s;
+      color: #fff;
+    }
+    .btn:hover { filter: brightness(1.2); }
+    .btn:active { transform: scale(.97); }
+    .btn-primary { background: #25d366; }
+    .btn-outline { background: transparent; border: 1px solid #3a3a46; color: #ddd; }
+    .btn-wa {
+      background: linear-gradient(135deg, #25d366, #128c7e);
+    }
+    .btn-copy { background: #33333e; }
+    .select-template, .input-link {
+      font-family: inherit;
+      background: #0f0f14;
+      border: 1px solid #33333e;
+      color: #e5e5e5;
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-size: 13px;
+      outline: none;
+    }
+    .select-template:focus, .input-link:focus { border-color: #E50914; }
+    .template-block {
+      background: #0f0f14;
+      border: 1px solid #262630;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .template-block-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .template-name { font-weight: 700; font-size: 14px; }
+    .template-msg {
+      white-space: pre-wrap;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #b9b9c2;
+      background: #121219;
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 12px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .template-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .empty { color: #8a8a95; text-align: center; padding: 32px 0; font-size: 14px; }
+    .toast {
+      position: fixed; bottom: 24px; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #1c1c24; border: 1px solid #2a2a34;
+      color: #fff; padding: 12px 20px; border-radius: 10px;
+      font-size: 13px; font-weight: 600;
+      transition: transform .3s; z-index: 999;
+      box-shadow: 0 8px 30px rgba(0,0,0,.4);
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+    .search-box {
+      width: 100%;
+      background: #0f0f14;
+      border: 1px solid #33333e;
+      color: #e5e5e5;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      margin-bottom: 16px;
+    }
+    .search-box:focus { border-color: #E50914; }
+    .guest-row-preview { display: none; }
+    @media (max-width: 640px) {
+      .admin-container { padding: 16px; }
+      .admin-header { padding: 18px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="admin-header">
+    <h1><span class="logo-dot">N</span> Admin Undangan — Naufal & Shilvia</h1>
+    <div class="links">
+      <a href="index.html" target="_blank">Buka Undangan</a>
+      <a href="data/guests.json" target="_blank">guests.json</a>
+      <a href="data/templates.json" target="_blank">templates.json</a>
+    </div>
+  </header>
+
+  <main class="admin-container">
+
+    <!-- Stats -->
+    <div class="admin-stats">
+      <div class="stat-card">
+        <div class="stat-value" id="stat-tamu">0</div>
+        <div class="stat-label">Total Tamu</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-template">0</div>
+        <div class="stat-label">Template WhatsApp</div>
+      </div>
+    </div>
+
+    <!-- Daftar Tamu -->
+    <section class="admin-section">
+      <h2>
+        <span class="section-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </span>
+        Daftar Tamu
+        <span style="font-weight:500; color:#8a8a95; font-size:12px; margin-left:auto;">Pilih template lalu kirim via WhatsApp</span>
+      </h2>
+
+      <input class="search-box" type="text" id="search-input" placeholder="Cari nama tamu...">
+
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:16px;">
+        <select class="select-template" id="template-select" style="flex:1; min-width:200px;"></select>
+        <button class="btn btn-outline" id="btn-ubah-template" title="Ubah template yang dipilih untuk dikirim">✏️ Ubah Template</button>
+      </div>
+
+      <div id="guest-list"></div>
+    </section>
+
+    <!-- Template WhatsApp -->
+    <section class="admin-section">
+      <h2>
+        <span class="section-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </span>
+        Template Pesan WhatsApp
+      </h2>
+      <div id="template-list"></div>
+    </section>
+
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var BASE_URL = 'https://navia.my.id/';
+      var guests = [];
+      var templates = [];
+      var selectedTemplateId = null;
+      var toastTimeout = null;
+
+      var guestListEl = document.getElementById('guest-list');
+      var templateListEl = document.getElementById('template-list');
+      var templateSelect = document.getElementById('template-select');
+      var searchInput = document.getElementById('search-input');
+      var statTamu = document.getElementById('stat-tamu');
+      var statTemplate = document.getElementById('stat-template');
+
+      function showToast(msg) {
+        var toast = document.getElementById('toast');
+        toast.textContent = msg;
+        toast.classList.add('show');
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(function () { toast.classList.remove('show'); }, 2500);
+      }
+
+      function loadData() {
+        return Promise.all([
+          fetch('data/guests.json').then(function (r) { if (!r.ok) throw new Error('guests.json'); return r.json(); }),
+          fetch('data/templates.json').then(function (r) { if (!r.ok) throw new Error('templates.json'); return r.json(); })
+        ]).then(function (results) {
+          guests = (results[0] && results[0].guests) || [];
+          templates = (results[1] && results[1].templates) || [];
+          statTamu.textContent = guests.length;
+          statTemplate.textContent = templates.length;
+          if (templates.length) {
+            selectedTemplateId = templates[0].id;
+            renderTemplateSelect();
+          }
+          renderTemplates();
+          renderGuests();
+        }).catch(function (err) {
+          guestListEl.innerHTML = '<div class="empty">Gagal memuat data. Jalankan lewat server (contoh: <code>python -m http.server</code>) dan muat ulang.</div>';
+        });
+      }
+
+      function getTemplateById(id) {
+        for (var i = 0; i < templates.length; i++) {
+          if (templates[i].id === id) return templates[i];
+        }
+        return templates[0] || null;
+      }
+
+      function renderTemplateSelect() {
+        templateSelect.innerHTML = '';
+        templates.forEach(function (t) {
+          var opt = document.createElement('option');
+          opt.value = t.id;
+          opt.textContent = t.name;
+          if (t.id === selectedTemplateId) opt.selected = true;
+          templateSelect.appendChild(opt);
+        });
+      }
+
+      function buildMessage(template, guest) {
+        if (!template) return '';
+        return (template.message || '')
+          .split('{nama}').join(guest.name)
+          .split('{slug}').join(guest.slug);
+      }
+
+      function waLink(phone, text) {
+        var clean = String(phone).replace(/[^0-9]/g, '');
+        if (clean.indexOf('0') === 0) clean = '62' + clean.slice(1);
+        return 'https://wa.me/' + clean + '?text=' + encodeURIComponent(text);
+      }
+
+      function renderGuests() {
+        var q = searchInput.value.trim().toLowerCase();
+        var filtered = guests.filter(function (g) {
+          return !q || g.name.toLowerCase().indexOf(q) !== -1 || g.slug.toLowerCase().indexOf(q) !== -1;
+        });
+
+        if (!filtered.length) {
+          guestListEl.innerHTML = '<div class="empty">Tidak ada tamu ditemukan.</div>';
+          return;
+        }
+
+        guestListEl.innerHTML = '';
+        filtered.forEach(function (guest) {
+          var row = document.createElement('div');
+          row.className = 'guest-row';
+
+          var info = document.createElement('div');
+          info.className = 'guest-info';
+          var avatar = document.createElement('div');
+          avatar.className = 'guest-avatar';
+          avatar.textContent = guest.name.charAt(0).toUpperCase();
+          var nameWrap = document.createElement('div');
+          var nameEl = document.createElement('div');
+          nameEl.className = 'guest-name';
+          nameEl.textContent = guest.name;
+          var slugEl = document.createElement('div');
+          slugEl.className = 'guest-slug';
+          slugEl.textContent = BASE_URL + '?to=' + guest.slug + '  •  ' + guest.phone;
+          nameWrap.appendChild(nameEl);
+          nameWrap.appendChild(slugEl);
+          info.appendChild(avatar);
+          info.appendChild(nameWrap);
+
+          var actions = document.createElement('div');
+          actions.className = 'guest-actions';
+
+          var btnWa = document.createElement('a');
+          btnWa.className = 'btn btn-wa';
+          btnWa.href = waLink(guest.phone, buildMessage(getTemplateById(selectedTemplateId), guest));
+          btnWa.target = '_blank';
+          btnWa.rel = 'noopener';
+          btnWa.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg> Kirim WA';
+          btnWa.addEventListener('click', function () {
+            showToast('Membuka WhatsApp untuk ' + guest.name);
+          });
+
+          var btnCopyLink = document.createElement('button');
+          btnCopyLink.className = 'btn btn-copy';
+          btnCopyLink.textContent = '🔗 Salin Link';
+          btnCopyLink.addEventListener('click', function () {
+            var link = BASE_URL + '?to=' + guest.slug;
+            if (navigator.clipboard) {
+              navigator.clipboard.writeText(link).then(function () {
+                showToast('Link undangan disalin: ' + link);
+              });
+            } else {
+              var ta = document.createElement('textarea');
+              ta.value = link;
+              document.body.appendChild(ta);
+              ta.select();
+              document.execCommand('copy');
+              document.body.removeChild(ta);
+              showToast('Link undangan disalin');
+            }
+          });
+
+          var btnSalinTeks = document.createElement('button');
+          btnSalinTeks.className = 'btn btn-outline';
+          btnSalinTeks.textContent = '📋 Salin Pesan';
+          btnSalinTeks.addEventListener('click', function () {
+            var text = buildMessage(getTemplateById(selectedTemplateId), guest);
+            if (navigator.clipboard) {
+              navigator.clipboard.writeText(text).then(function () {
+                showToast('Pesan disalin ke clipboard');
+              });
+            } else {
+              var ta = document.createElement('textarea');
+              ta.value = text;
+              document.body.appendChild(ta);
+              ta.select();
+              document.execCommand('copy');
+              document.body.removeChild(ta);
+              showToast('Pesan disalin ke clipboard');
+            }
+          });
+
+          actions.appendChild(btnWa);
+          actions.appendChild(btnSalinTeks);
+          actions.appendChild(btnCopyLink);
+          row.appendChild(info);
+          row.appendChild(actions);
+          guestListEl.appendChild(row);
+        });
+      }
+
+      function renderTemplates() {
+        templateListEl.innerHTML = '';
+        if (!templates.length) {
+          templateListEl.innerHTML = '<div class="empty">Belum ada template.</div>';
+          return;
+        }
+        templates.forEach(function (t) {
+          var block = document.createElement('div');
+          block.className = 'template-block';
+
+          var header = document.createElement('div');
+          header.className = 'template-block-header';
+          var nameEl = document.createElement('div');
+          nameEl.className = 'template-name';
+          nameEl.textContent = t.name;
+          header.appendChild(nameEl);
+
+          var msgEl = document.createElement('div');
+          msgEl.className = 'template-msg';
+          msgEl.textContent = t.message || '';
+
+          var actions = document.createElement('div');
+          actions.className = 'template-actions';
+
+          var btnGunakan = document.createElement('button');
+          btnGunakan.className = 'btn btn-primary';
+          btnGunakan.innerHTML = '✓ Gunakan';
+          btnGunakan.addEventListener('click', function () {
+            selectedTemplateId = t.id;
+            renderTemplateSelect();
+            renderGuests();
+            showToast('Template "' + t.name + '" dipilih');
+          });
+
+          var btnSalin = document.createElement('button');
+          btnSalin.className = 'btn btn-outline';
+          btnSalin.textContent = '📋 Salin';
+          btnSalin.addEventListener('click', function () {
+            if (navigator.clipboard) {
+              navigator.clipboard.writeText(t.message || '').then(function () {
+                showToast('Template disalin');
+              });
+            }
+          });
+
+          actions.appendChild(btnGunakan);
+          actions.appendChild(btnSalin);
+          block.appendChild(header);
+          block.appendChild(msgEl);
+          block.appendChild(actions);
+          templateListEl.appendChild(block);
+        });
+      }
+
+      templateSelect.addEventListener('change', function () {
+        selectedTemplateId = parseInt(templateSelect.value, 10);
+        renderGuests();
+      });
+
+      searchInput.addEventListener('input', renderGuests);
+
+      document.getElementById('btn-ubah-template').addEventListener('click', function () {
+        var target = document.getElementById('template-list');
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+
+      loadData();
+    })();
+  </script>
+</body>
+</html>

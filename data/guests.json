@@ -1,0 +1,28 @@
+{
+  "guests": [
+    {
+      "id": 1,
+      "slug": "budi-santoso",
+      "name": "Budi Santoso",
+      "phone": "6281234567890"
+    },
+    {
+      "id": 2,
+      "slug": "siti-rahayu",
+      "name": "Siti Rahayu",
+      "phone": "6289876543210"
+    },
+    {
+      "id": 3,
+      "slug": "ahmad-fauzi",
+      "name": "Ahmad Fauzi",
+      "phone": "628111222333"
+    },
+    {
+      "id": 4,
+      "slug": "dewi-lestari",
+      "name": "Dewi Lestari",
+      "phone": "628444555666"
+    }
+  ]
+}
