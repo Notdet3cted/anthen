@@ -483,7 +483,18 @@
 
   // ========== COUNTDOWN ==========
   function startCountdown() {
-    var weddingDate = new Date('2026-10-04T09:00:00+07:00').getTime();
+    var params = new URLSearchParams(window.location.search);
+    var isNgunduhMantu = params.get('tp') === 'nm';
+    var weddingDate = (isNgunduhMantu
+      ? new Date('2026-10-05T13:00:00+07:00')  // Senin, 5 Oktober 2026 pukul 13:00
+      : new Date('2026-10-04T09:00:00+07:00')).getTime();  // Minggu, 4 Oktober 2026 pukul 09:00
+
+    // Tanggal yang tertera di cover menyesuaikan parameter ?tp=nm
+    if (isNgunduhMantu) {
+      var splashDateEl = document.querySelector('.splash-date');
+      if (splashDateEl) splashDateEl.textContent = 'Senin, 5 Oktober 2026';
+    }
+
     var heroEls = {
       d: document.getElementById('cd-days'),
       h: document.getElementById('cd-hours'),
@@ -520,5 +531,15 @@
   // Inisialisasi guest & splash
   startCountdown();
   initGuestFromUrl();
+
+  // ========== NETFLIX-STYLE LOADER ==========
+  var netflixLoader = document.getElementById('netflix-loader');
+  if (netflixLoader) {
+    document.body.style.overflow = 'hidden';
+    setTimeout(function () {
+      netflixLoader.classList.add('hidden');
+      document.body.style.overflow = '';
+    }, 3000);
+  }
 
 })();
