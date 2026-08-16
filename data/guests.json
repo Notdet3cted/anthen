@@ -4,25 +4,33 @@
       "id": 1,
       "slug": "budi-santoso",
       "name": "Budi Santoso",
-      "phone": "6281234567890"
+      "phone": "6281234567890",
+      "tp": "akad",
+      "code": "BP-001"
     },
     {
       "id": 2,
       "slug": "siti-rahayu",
       "name": "Siti Rahayu",
-      "phone": "6289876543210"
+      "phone": "6289876543210",
+      "tp": "akad",
+      "code": "BP-002"
     },
     {
       "id": 3,
       "slug": "ahmad-fauzi",
       "name": "Ahmad Fauzi",
-      "phone": "628111222333"
+      "phone": "628111222333",
+      "tp": "nm",
+      "code": "GP-001"
     },
     {
       "id": 4,
       "slug": "dewi-lestari",
       "name": "Dewi Lestari",
-      "phone": "628444555666"
+      "phone": "628444555666",
+      "tp": "nm",
+      "code": "GP-002"
     }
   ]
 }

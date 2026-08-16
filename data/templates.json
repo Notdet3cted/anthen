@@ -3,12 +3,12 @@
     {
       "id": 1,
       "name": "Undangan Resmi",
-"message": "Assalamu'alaikum Wr. Wb.\n\nKepada Yth. {nama},\n\nTanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dalam acara pernikahan kami:\n\nNaufal Arrafi & Shilvia Agatha\n\n📅 Minggu, 4 Oktober 2026, pukul 09.00 WIB (Akad Nikah)\n🕌 Kediaman Putri\n\n📅 Senin, 5 Oktober 2026, pukul 13.00 WIB - Selesai (Ngunduh Mantu)\n🏠 Kediaman Pria\n\nMerupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.\n\nLink undangan: https://navia.my.id/?to={slug}\n\nWassalamu'alaikum Wr. Wb.\nNaufal & Shilvia"
+      "message": "Assalamu'alaikum Warahmatullahi Wabarakatuh,\n\nDengan memohon rahmat dan ridha Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk berkenan hadir dan memberikan doa restu dalam acara pernikahan:\n\nNaufal Arrafi\n&\nShilvia Agatha\n\nYang Insya Allah akan dilaksanakan pada:\n\n📅 Akad Nikah: Minggu, 4 Oktober 2026, Pukul 09.00 WIB\n🕌 Kediaman Putri\n\n📅 Ngunduh Mantu: Senin, 5 Oktober 2026, Pukul 13.00 WIB - Selesai\n🏠 Kediaman Pria\n\nMerupakan suatu kehormatan dan kebahagiaan bagi kami sekeluarga apabila Bapak/Ibu/Saudara/i berkenan hadir. Kehadiran dan doa restu Bapak/Ibu/Saudara/i menjadi kebahagiaan tersendiri bagi kami.\n\nLink undangan: {link}\n\nWassalamu'alaikum Warahmatullahi Wabarakatuh.\n\nHormat kami,\nNaufal & Shilvia"
     },
     {
       "id": 2,
       "name": "Singkat",
-"message": "Halo {nama}! 👋\n\nKami sekeluarga mengundang kamu untuk hadir di hari bahagia kami 🎉\n\nNaufal 💍 Shilvia\n📅 Minggu, 4 Oktober 2026 (Akad Nikah)\n🕌 Kediaman Putri\n📅 Senin, 5 Oktober 2026 (Ngunduh Mantu)\n🏠 Kediaman Pria\n\nLink undangan: https://navia.my.id/?to={slug}\n\nSampai ketemu di hari H! 😊"
+      "message": "Assalamu'alaikum Wr. Wb.\n\nKepada Yth. {nama},\n\nDengan segala hormat, kami mengundang Anda untuk hadir pada acara pernikahan kami:\n\nNaufal 💍 Shilvia\n📅 Minggu, 4 Oktober 2026 (Akad Nikah)\n🕌 Kediaman Putri\n📅 Senin, 5 Oktober 2026 (Ngunduh Mantu)\n🏠 Kediaman Pria\n\nLink undangan: {link}\n\nTerima kasih atas doa dan kehadirannya.\nWassalamu'alaikum Wr. Wb."
     }
   ]
 }

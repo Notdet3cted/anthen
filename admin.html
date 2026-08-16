@@ -106,6 +106,46 @@
     .guest-name { font-weight: 600; font-size: 14px; }
     .guest-slug { font-size: 12px; color: #8a8a95; margin-top: 2px; }
     .guest-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .filter-tab {
+      font-family: inherit;
+      background: #0f0f14;
+      border: 1px solid #33333e;
+      color: #a3a3ad;
+      border-radius: 999px;
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .filter-tab:hover { border-color: #E50914; color: #fff; }
+    .filter-tab.active { background: #E50914; border-color: #E50914; color: #fff; }
+    .guest-group { margin-bottom: 20px; }
+    .guest-group-header {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 13px; font-weight: 800; color: #e5e5e5;
+      padding: 10px 14px; margin-bottom: 10px;
+      background: #12121a; border: 1px solid #262630; border-radius: 10px;
+    }
+    .guest-group-header .group-count { font-weight: 600; color: #8a8a95; font-size: 12px; }
+    .guest-code {
+      display: inline-flex; align-items: center;
+      background: rgba(229, 9, 20, .15);
+      color: #ff6b74;
+      border: 1px solid rgba(229, 9, 20, .35);
+      border-radius: 6px;
+      font-size: 10px; font-weight: 800;
+      letter-spacing: .06em;
+      padding: 2px 8px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .guest-code-nm {
+      background: rgba(37, 211, 102, .12);
+      color: #4ade80;
+      border-color: rgba(37, 211, 102, .35);
+    }
     .btn {
       font-family: inherit;
       font-size: 12px;
@@ -193,6 +233,86 @@
       margin-bottom: 16px;
     }
     .search-box:focus { border-color: #E50914; }
+    /* Lockscreen */
+    .lockscreen {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 1000;
+      background: radial-gradient(1100px 500px at 50% -10%, #1d1d26, #0f0f14 60%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .lockscreen.hidden { display: none; }
+    .lock-card {
+      width: 100%;
+      max-width: 380px;
+      background: #181820;
+      border: 1px solid #2a2a34;
+      border-radius: 16px;
+      padding: 40px 32px;
+      text-align: center;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .5);
+    }
+    .lock-logo {
+      width: 64px; height: 64px;
+      margin: 0 auto 18px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #E50914, #b00610);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 30px; font-weight: 900; color: #fff;
+    }
+    .lock-title { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+    .lock-sub { font-size: 12px; color: #8a8a95; margin-bottom: 24px; }
+    .lock-input {
+      width: 100%;
+      font-family: inherit;
+      text-align: center;
+      letter-spacing: 3px;
+      background: #0f0f14;
+      border: 1px solid #33333e;
+      color: #e5e5e5;
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 16px;
+      outline: none;
+      margin-bottom: 14px;
+      transition: border-color .2s;
+    }
+    .lock-input:focus { border-color: #E50914; }
+    .lock-input.error { border-color: #E50914; animation: lock-shake .3s; }
+    @keyframes lock-shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+    .lock-btn {
+      width: 100%;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      padding: 14px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #E50914, #b00610);
+      color: #fff;
+      transition: filter .2s, transform .1s;
+    }
+    .lock-btn:hover { filter: brightness(1.15); }
+    .lock-btn:active { transform: scale(.98); }
+    .lock-error {
+      min-height: 18px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #ff6b74;
+      margin-top: 12px;
+    }
+    .lock-hint { margin-top: 18px; font-size: 11px; color: #5a5a66; }
+    body.admin-locked .admin-header,
+    body.admin-locked .admin-container,
+    body.admin-locked .toast { display: none; }
     .guest-row-preview { display: none; }
     @media (max-width: 640px) {
       .admin-container { padding: 16px; }
@@ -200,7 +320,22 @@
     }
   </style>
 </head>
-<body>
+<body class="admin-locked">
+
+  <!-- Lockscreen Admin -->
+  <div class="lockscreen" id="lockscreen">
+    <div class="lock-card">
+      <div class="lock-logo">N</div>
+      <div class="lock-title">Admin Undangan</div>
+      <div class="lock-sub">Masukkan kata sandi untuk mengakses halaman admin</div>
+      <form id="lock-form" autocomplete="off">
+        <input class="lock-input" type="password" id="lock-password" placeholder="••••••••" aria-label="Kata sandi">
+        <button class="lock-btn" type="submit">🔓 Buka Admin</button>
+        <div class="lock-error" id="lock-error"></div>
+      </form>
+      <div class="lock-hint">Konten admin terkunci sampai kata sandi dimasukkan</div>
+    </div>
+  </div>
 
   <header class="admin-header">
     <h1><span class="logo-dot">N</span> Admin Undangan — Naufal & Shilvia</h1>
@@ -208,6 +343,7 @@
       <a href="index.html" target="_blank">Buka Undangan</a>
       <a href="data/guests.json" target="_blank">guests.json</a>
       <a href="data/templates.json" target="_blank">templates.json</a>
+      <a href="#" id="btn-lock" title="Kunci halaman admin">🔒 Kunci</a>
     </div>
   </header>
 
@@ -222,6 +358,14 @@
       <div class="stat-card">
         <div class="stat-value" id="stat-template">0</div>
         <div class="stat-label">Template WhatsApp</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-akad">0</div>
+        <div class="stat-label">Tamu Akad Nikah (Putri)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-nm">0</div>
+        <div class="stat-label">Tamu Ngunduh Mantu (Pria)</div>
       </div>
     </div>
 
@@ -240,6 +384,12 @@
       <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:16px;">
         <select class="select-template" id="template-select" style="flex:1; min-width:200px;"></select>
         <button class="btn btn-outline" id="btn-ubah-template" title="Ubah template yang dipilih untuk dikirim">✏️ Ubah Template</button>
+      </div>
+
+      <div class="filter-tabs" id="filter-tabs">
+        <button class="filter-tab active" type="button" data-filter="all">Semua</button>
+        <button class="filter-tab" type="button" data-filter="akad">Akad Nikah (Putri)</button>
+        <button class="filter-tab" type="button" data-filter="nm">Ngunduh Mantu (Pria)</button>
       </div>
 
       <div id="guest-list"></div>
@@ -268,6 +418,7 @@
       var guests = [];
       var templates = [];
       var selectedTemplateId = null;
+      var currentFilter = 'all';
       var toastTimeout = null;
 
       var guestListEl = document.getElementById('guest-list');
@@ -276,6 +427,18 @@
       var searchInput = document.getElementById('search-input');
       var statTamu = document.getElementById('stat-tamu');
       var statTemplate = document.getElementById('stat-template');
+      var statAkad = document.getElementById('stat-akad');
+      var statNm = document.getElementById('stat-nm');
+      var filterTabs = document.getElementById('filter-tabs');
+
+      var ADMIN_PASSWORD = 'navia2026'; // ⚠️ Ganti dengan kata sandi Anda
+      var LOCK_KEY = 'admin_unlocked';
+
+      var lockscreen = document.getElementById('lockscreen');
+      var lockForm = document.getElementById('lock-form');
+      var lockPassword = document.getElementById('lock-password');
+      var lockError = document.getElementById('lock-error');
+      var btnLock = document.getElementById('btn-lock');
 
       function showToast(msg) {
         var toast = document.getElementById('toast');
@@ -284,6 +447,46 @@
         if (toastTimeout) clearTimeout(toastTimeout);
         toastTimeout = setTimeout(function () { toast.classList.remove('show'); }, 2500);
       }
+
+      function unlockAdmin() {
+        document.body.classList.remove('admin-locked');
+        lockscreen.classList.add('hidden');
+      }
+
+      function initLock() {
+        if (sessionStorage.getItem(LOCK_KEY) === '1') {
+          unlockAdmin();
+        } else {
+          lockPassword.focus();
+        }
+      }
+
+      lockForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (lockPassword.value === ADMIN_PASSWORD) {
+          sessionStorage.setItem(LOCK_KEY, '1');
+          lockError.textContent = '';
+          lockPassword.classList.remove('error');
+          unlockAdmin();
+          showToast('Halaman admin dibuka');
+        } else {
+          lockError.textContent = 'Kata sandi salah, coba lagi';
+          lockPassword.value = '';
+          lockPassword.classList.add('error');
+          lockPassword.focus();
+        }
+      });
+
+      btnLock.addEventListener('click', function (e) {
+        e.preventDefault();
+        sessionStorage.removeItem(LOCK_KEY);
+        document.body.classList.add('admin-locked');
+        lockscreen.classList.remove('hidden');
+        lockPassword.value = '';
+        lockError.textContent = '';
+        lockPassword.classList.remove('error');
+        lockPassword.focus();
+      });
 
       function loadData() {
         return Promise.all([
@@ -294,6 +497,9 @@
           templates = (results[1] && results[1].templates) || [];
           statTamu.textContent = guests.length;
           statTemplate.textContent = templates.length;
+          var akadCount = guests.filter(function (g) { return !isNmGuest(g); }).length;
+          statAkad.textContent = akadCount;
+          statNm.textContent = guests.length - akadCount;
           if (templates.length) {
             selectedTemplateId = templates[0].id;
             renderTemplateSelect();
@@ -312,6 +518,18 @@
         return templates[0] || null;
       }
 
+      function isNmGuest(guest) {
+        return !!guest && guest.tp === 'nm';
+      }
+
+      function guestCode(guest) {
+        return (guest && guest.code) || '';
+      }
+
+      function guestLink(guest) {
+        return BASE_URL + '?to=' + guest.slug + (isNmGuest(guest) ? '&tp=nm' : '');
+      }
+
       function renderTemplateSelect() {
         templateSelect.innerHTML = '';
         templates.forEach(function (t) {
@@ -327,7 +545,9 @@
         if (!template) return '';
         return (template.message || '')
           .split('{nama}').join(guest.name)
-          .split('{slug}').join(guest.slug);
+          .split('{slug}').join(guest.slug)
+          .split('{link}').join(guestLink(guest))
+          .split('{kode}').join(guestCode(guest));
       }
 
       function waLink(phone, text) {
@@ -339,7 +559,14 @@
       function renderGuests() {
         var q = searchInput.value.trim().toLowerCase();
         var filtered = guests.filter(function (g) {
-          return !q || g.name.toLowerCase().indexOf(q) !== -1 || g.slug.toLowerCase().indexOf(q) !== -1;
+          var matchGroup =
+            currentFilter === 'all' ||
+            (currentFilter === 'nm' ? isNmGuest(g) : !isNmGuest(g));
+          var matchQ =
+            !q ||
+            g.name.toLowerCase().indexOf(q) !== -1 ||
+            g.slug.toLowerCase().indexOf(q) !== -1;
+          return matchGroup && matchQ;
         });
 
         if (!filtered.length) {
@@ -348,87 +575,130 @@
         }
 
         guestListEl.innerHTML = '';
-        filtered.forEach(function (guest) {
-          var row = document.createElement('div');
-          row.className = 'guest-row';
 
-          var info = document.createElement('div');
-          info.className = 'guest-info';
-          var avatar = document.createElement('div');
-          avatar.className = 'guest-avatar';
-          avatar.textContent = guest.name.charAt(0).toUpperCase();
-          var nameWrap = document.createElement('div');
-          var nameEl = document.createElement('div');
-          nameEl.className = 'guest-name';
-          nameEl.textContent = guest.name;
-          var slugEl = document.createElement('div');
-          slugEl.className = 'guest-slug';
-          slugEl.textContent = BASE_URL + '?to=' + guest.slug + '  •  ' + guest.phone;
-          nameWrap.appendChild(nameEl);
-          nameWrap.appendChild(slugEl);
-          info.appendChild(avatar);
-          info.appendChild(nameWrap);
+        var akadList = filtered.filter(function (g) { return !isNmGuest(g); });
+        var nmList = filtered.filter(function (g) { return isNmGuest(g); });
 
-          var actions = document.createElement('div');
-          actions.className = 'guest-actions';
+        if (currentFilter !== 'nm' && akadList.length) {
+          renderGuestGroup('👰 Tamu Akad Nikah — Kediaman Putri', akadList);
+        }
+        if (currentFilter !== 'akad' && nmList.length) {
+          renderGuestGroup('🤵 Tamu Ngunduh Mantu — Kediaman Pria', nmList);
+        }
+      }
 
-          var btnWa = document.createElement('a');
-          btnWa.className = 'btn btn-wa';
-          btnWa.href = waLink(guest.phone, buildMessage(getTemplateById(selectedTemplateId), guest));
-          btnWa.target = '_blank';
-          btnWa.rel = 'noopener';
-          btnWa.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg> Kirim WA';
-          btnWa.addEventListener('click', function () {
-            showToast('Membuka WhatsApp untuk ' + guest.name);
-          });
+      function renderGuestGroup(title, list) {
+        var group = document.createElement('div');
+        group.className = 'guest-group';
 
-          var btnCopyLink = document.createElement('button');
-          btnCopyLink.className = 'btn btn-copy';
-          btnCopyLink.textContent = '🔗 Salin Link';
-          btnCopyLink.addEventListener('click', function () {
-            var link = BASE_URL + '?to=' + guest.slug;
-            if (navigator.clipboard) {
-              navigator.clipboard.writeText(link).then(function () {
-                showToast('Link undangan disalin: ' + link);
-              });
-            } else {
-              var ta = document.createElement('textarea');
-              ta.value = link;
-              document.body.appendChild(ta);
-              ta.select();
-              document.execCommand('copy');
-              document.body.removeChild(ta);
-              showToast('Link undangan disalin');
-            }
-          });
+        var header = document.createElement('div');
+        header.className = 'guest-group-header';
+        var titleEl = document.createElement('span');
+        titleEl.textContent = title;
+        var countEl = document.createElement('span');
+        countEl.className = 'group-count';
+        countEl.textContent = list.length + ' tamu';
+        header.appendChild(titleEl);
+        header.appendChild(countEl);
+        group.appendChild(header);
 
-          var btnSalinTeks = document.createElement('button');
-          btnSalinTeks.className = 'btn btn-outline';
-          btnSalinTeks.textContent = '📋 Salin Pesan';
-          btnSalinTeks.addEventListener('click', function () {
-            var text = buildMessage(getTemplateById(selectedTemplateId), guest);
-            if (navigator.clipboard) {
-              navigator.clipboard.writeText(text).then(function () {
-                showToast('Pesan disalin ke clipboard');
-              });
-            } else {
-              var ta = document.createElement('textarea');
-              ta.value = text;
-              document.body.appendChild(ta);
-              ta.select();
-              document.execCommand('copy');
-              document.body.removeChild(ta);
-              showToast('Pesan disalin ke clipboard');
-            }
-          });
-
-          actions.appendChild(btnWa);
-          actions.appendChild(btnSalinTeks);
-          actions.appendChild(btnCopyLink);
-          row.appendChild(info);
-          row.appendChild(actions);
-          guestListEl.appendChild(row);
+        list.forEach(function (guest) {
+          group.appendChild(renderGuestRow(guest));
         });
+
+        guestListEl.appendChild(group);
+      }
+
+      function renderGuestRow(guest) {
+        var row = document.createElement('div');
+        row.className = 'guest-row';
+
+        var info = document.createElement('div');
+        info.className = 'guest-info';
+        var avatar = document.createElement('div');
+        avatar.className = 'guest-avatar';
+        avatar.textContent = guest.name.charAt(0).toUpperCase();
+        var nameWrap = document.createElement('div');
+        var nameEl = document.createElement('div');
+        nameEl.className = 'guest-name';
+        nameEl.textContent = guest.name;
+
+        var code = guestCode(guest);
+        if (code) {
+          var codeEl = document.createElement('span');
+          codeEl.className = 'guest-code' + (isNmGuest(guest) ? ' guest-code-nm' : '');
+          codeEl.textContent = code;
+          codeEl.title = isNmGuest(guest) ? 'Kode Tamu Pria (Ngunduh Mantu)' : 'Kode Tamu (Akad Nikah)';
+          nameEl.appendChild(codeEl);
+        }
+
+        var slugEl = document.createElement('div');
+        slugEl.className = 'guest-slug';
+        slugEl.textContent = guestLink(guest) + '  •  ' + guest.phone;
+        nameWrap.appendChild(nameEl);
+        nameWrap.appendChild(slugEl);
+        info.appendChild(avatar);
+        info.appendChild(nameWrap);
+
+        var actions = document.createElement('div');
+        actions.className = 'guest-actions';
+
+        var btnWa = document.createElement('a');
+        btnWa.className = 'btn btn-wa';
+        btnWa.href = waLink(guest.phone, buildMessage(getTemplateById(selectedTemplateId), guest));
+        btnWa.target = '_blank';
+        btnWa.rel = 'noopener';
+        btnWa.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg> Kirim WA';
+        btnWa.addEventListener('click', function () {
+          showToast('Membuka WhatsApp untuk ' + guest.name);
+        });
+
+        var btnCopyLink = document.createElement('button');
+        btnCopyLink.className = 'btn btn-copy';
+        btnCopyLink.textContent = '🔗 Salin Link';
+        btnCopyLink.addEventListener('click', function () {
+          var link = guestLink(guest);
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(link).then(function () {
+              showToast('Link undangan disalin: ' + link);
+            });
+          } else {
+            var ta = document.createElement('textarea');
+            ta.value = link;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            showToast('Link undangan disalin');
+          }
+        });
+
+        var btnSalinTeks = document.createElement('button');
+        btnSalinTeks.className = 'btn btn-outline';
+        btnSalinTeks.textContent = '📋 Salin Pesan';
+        btnSalinTeks.addEventListener('click', function () {
+          var text = buildMessage(getTemplateById(selectedTemplateId), guest);
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(text).then(function () {
+              showToast('Pesan disalin ke clipboard');
+            });
+          } else {
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            showToast('Pesan disalin ke clipboard');
+          }
+        });
+
+        actions.appendChild(btnWa);
+        actions.appendChild(btnSalinTeks);
+        actions.appendChild(btnCopyLink);
+        row.appendChild(info);
+        row.appendChild(actions);
+        return row;
       }
 
       function renderTemplates() {
@@ -485,6 +755,17 @@
         });
       }
 
+      filterTabs.addEventListener('click', function (e) {
+        var btn = e.target.closest('.filter-tab');
+        if (!btn) return;
+        currentFilter = btn.getAttribute('data-filter');
+        var tabs = filterTabs.querySelectorAll('.filter-tab');
+        for (var i = 0; i < tabs.length; i++) {
+          tabs[i].classList.toggle('active', tabs[i] === btn);
+        }
+        renderGuests();
+      });
+
       templateSelect.addEventListener('change', function () {
         selectedTemplateId = parseInt(templateSelect.value, 10);
         renderGuests();
@@ -498,6 +779,7 @@
       });
 
       loadData();
+      initLock();
     })();
   </script>
 </body>

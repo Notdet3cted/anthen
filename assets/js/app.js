@@ -35,6 +35,11 @@
   var toastTimeout = null;
   var guestNameValue = "Tamu Undangan";
 
+  // Mode ?tp=nm — Ngunduh Mantu (Senin, 5 Oktober 2026)
+  var isNgunduhMode =
+    new URLSearchParams(window.location.search).get("tp") === "nm";
+  var heroMainDate = isNgunduhMode ? "5 Oktober 2026" : "4 Oktober 2026";
+
   // Gallery images — urutan index harus sama dgn data-gallery-index di HTML
   var galleryImages = [
     "assets/images/g13.JPG", // 0: featured
@@ -85,7 +90,9 @@
         }
         guestNameValue = guest.name;
         if (splashName) splashName.textContent = guest.name;
-        if (hint) hint.textContent = "Link undangan untuk " + guest.name;
+        if (hint)
+          hint.textContent =
+            "Kode tamu: " + (guest.code || "-") + "  •  " + guest.name;
         updateHeroDesc(guest.name);
       })
       .catch(function () {
@@ -102,7 +109,9 @@
       heroDesc.textContent =
         "Kepada Yth. " +
         name +
-        ", di antara sekian banyak pertemuan yang ditulis semesta, kami menemukan satu sama lain. Kini, pada 4 Oktober 2026, kami ingin mengabadikan satu babak paling indah dalam perjalanan ini. Hadirlah, dan menjadi bagian dari cerita yang akan kami kenang sepanjang usia.";
+        ", di antara sekian banyak pertemuan yang ditulis semesta, kami menemukan satu sama lain. Kini, pada " +
+        heroMainDate +
+        ", kami ingin mengabadikan satu babak paling indah dalam perjalanan ini. Hadirlah, dan menjadi bagian dari cerita yang akan kami kenang sepanjang usia.";
     }
   }
 
@@ -185,7 +194,15 @@
   heroPlayBtn.addEventListener("click", toggleMusic);
 
   heroMylistBtn.addEventListener("click", function () {
-    document.getElementById("couple").scrollIntoView({ behavior: "smooth" });
+    // Default ke Akad Nikah; saat ?tp=nm arahkan ke Ngunduh Mantu
+    var targetId = isNgunduhMode ? "event-ngunduh" : "event-akad";
+    var target = document.getElementById(targetId);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      var fallback = document.getElementById("event");
+      if (fallback) fallback.scrollIntoView({ behavior: "smooth" });
+    }
   });
 
   // ========== TOAST ==========
@@ -428,6 +445,44 @@
     });
   });
 
+  // ========== COMING SOON — REMIND ME ==========
+  var remindBtns = document.querySelectorAll(".coming-remind");
+  remindBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var reminded = btn.classList.toggle("active");
+      var label = btn.getAttribute("data-label") || "Acara";
+      var textEl = btn.querySelector("span");
+      if (reminded) {
+        textEl.textContent = "Sudah Diingatkan";
+        showToast("Membuka Google Calendar — " + label, "success");
+        openGoogleCalendar(btn);
+      } else {
+        textEl.textContent = "Remind Me";
+        showToast("Pengingat dibatalkan", "error");
+      }
+    });
+  });
+
+  // Simpan acara ke Google Calendar
+  function openGoogleCalendar(btn) {
+    var title = btn.getAttribute("data-title") || "Pernikahan";
+    var dates = btn.getAttribute("data-dates") || "";
+    var location = btn.getAttribute("data-location") || "";
+    var details = btn.getAttribute("data-details") || "";
+    var url =
+      "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+      "&text=" +
+      encodeURIComponent(title) +
+      "&dates=" +
+      encodeURIComponent(dates) +
+      "&details=" +
+      encodeURIComponent(details) +
+      "&location=" +
+      encodeURIComponent(location) +
+      "&ctz=Asia/Jakarta";
+    window.open(url, "_blank", "noopener");
+  }
+
   // ========== WEBTOON STORY READER ==========
   const storyData = [
     { id: 1, title: "Episode 1 — The Meeting", file: "1.png" },
@@ -525,18 +580,18 @@
 
   // ========== COUNTDOWN ==========
   function startCountdown() {
-    var params = new URLSearchParams(window.location.search);
-    var isNgunduhMantu = params.get("tp") === "nm";
     var weddingDate = (
-      isNgunduhMantu
+      isNgunduhMode
         ? new Date("2026-10-05T13:00:00+07:00") // Senin, 5 Oktober 2026 pukul 13:00
         : new Date("2026-10-04T09:00:00+07:00")
     ).getTime(); // Minggu, 4 Oktober 2026 pukul 09:00
 
-    // Tanggal yang tertera di cover menyesuaikan parameter ?tp=nm
-    if (isNgunduhMantu) {
+    // Tanggal yang tertera di cover & hero menyesuaikan parameter ?tp=nm
+    if (isNgunduhMode) {
       var splashDateEl = document.querySelector(".splash-date");
       if (splashDateEl) splashDateEl.textContent = "Senin, 5 Oktober 2026";
+      var heroDateEl = document.querySelector(".hero-date-text");
+      if (heroDateEl) heroDateEl.textContent = heroMainDate;
     }
 
     var heroEls = {
