@@ -209,6 +209,26 @@
       overflow-y: auto;
     }
     .template-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .template-type-badge {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(229, 9, 20, .15);
+      color: #ff6b74;
+      border: 1px solid rgba(229, 9, 20, .35);
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      padding: 2px 8px;
+      margin-left: 8px;
+      vertical-align: middle;
+      text-transform: uppercase;
+    }
+    .template-type-badge.is-nm {
+      background: rgba(37, 211, 102, .12);
+      color: #4ade80;
+      border-color: rgba(37, 211, 102, .35);
+    }
     .empty { color: #8a8a95; text-align: center; padding: 32px 0; font-size: 14px; }
     .toast {
       position: fixed; bottom: 24px; left: 50%;
@@ -522,6 +542,20 @@
         return !!guest && guest.tp === 'nm';
       }
 
+      function isAkadTemplate(t) {
+        return t && t.type === 'akad';
+      }
+
+      function isNmTemplate(t) {
+        return t && t.type === 'nm';
+      }
+
+      function templatesForFilter() {
+        if (currentFilter === 'akad') return templates.filter(isAkadTemplate);
+        if (currentFilter === 'nm') return templates.filter(isNmTemplate);
+        return templates;
+      }
+
       function guestCode(guest) {
         return (guest && guest.code) || '';
       }
@@ -532,7 +566,19 @@
 
       function renderTemplateSelect() {
         templateSelect.innerHTML = '';
-        templates.forEach(function (t) {
+        var filtered = templatesForFilter();
+        if (!filtered.length) {
+          var optEmpty = document.createElement('option');
+          optEmpty.value = '';
+          optEmpty.textContent = '— Tidak ada template untuk tipe ini —';
+          templateSelect.appendChild(optEmpty);
+          return;
+        }
+        // Jika template terpilih tidak cocok dengan filter, pilih yang pertama dari hasil filter
+        var current = getTemplateById(selectedTemplateId);
+        var matches = filtered.some(function (t) { return current && t.id === current.id; });
+        if (!matches) selectedTemplateId = filtered[0].id;
+        filtered.forEach(function (t) {
           var opt = document.createElement('option');
           opt.value = t.id;
           opt.textContent = t.name;
@@ -703,11 +749,16 @@
 
       function renderTemplates() {
         templateListEl.innerHTML = '';
+        var filtered = templatesForFilter();
+        if (!filtered.length) {
+          templateListEl.innerHTML = '<div class="empty">Belum ada template untuk tipe ini.</div>';
+          return;
+        }
         if (!templates.length) {
           templateListEl.innerHTML = '<div class="empty">Belum ada template.</div>';
           return;
         }
-        templates.forEach(function (t) {
+        filtered.forEach(function (t) {
           var block = document.createElement('div');
           block.className = 'template-block';
 
@@ -715,7 +766,12 @@
           header.className = 'template-block-header';
           var nameEl = document.createElement('div');
           nameEl.className = 'template-name';
-          nameEl.textContent = t.name;
+
+          var typeBadge = document.createElement('span');
+          typeBadge.className = 'template-type-badge' + (isNmTemplate(t) ? ' is-nm' : '');
+          typeBadge.textContent = isNmTemplate(t) ? 'Ngunduh Mantu' : 'Akad Nikah';
+          nameEl.appendChild(document.createTextNode(t.name));
+          nameEl.appendChild(typeBadge);
           header.appendChild(nameEl);
 
           var msgEl = document.createElement('div');
@@ -763,6 +819,8 @@
         for (var i = 0; i < tabs.length; i++) {
           tabs[i].classList.toggle('active', tabs[i] === btn);
         }
+        renderTemplateSelect();
+        renderTemplates();
         renderGuests();
       });
 
