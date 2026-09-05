@@ -35,6 +35,81 @@
   var toastTimeout = null;
   var guestNameValue = "Tamu Undangan";
 
+  // ========== SITE / META CONSTANTS ==========
+  var SITE_BASE_URL = "https://navia.my.id/";
+  var COUPLE_NAMES = "Naufal Arrafi & Shilvia Agatha";
+  var META_IMAGE = "https://navia.my.id/assets/images/g14.JPG";
+  // Query unik per nama tamu & tanggal agar cache sosial (WhatsApp/FB/Twitter) ter-refresh
+  var cacheStamp = encodeURIComponent(new Date().toISOString().slice(0, 10));
+
+  function metaTag(selector) {
+    var el = document.querySelector(selector);
+    if (!el) {
+      el = document.createElement("meta");
+      if (selector.indexOf("property=") === 0) {
+        el.setAttribute("property", selector.slice(9, -1));
+      } else if (selector.indexOf("name=") === 0) {
+        el.setAttribute("name", selector.slice(5, -1));
+      }
+      document.head.appendChild(el);
+      return el;
+    }
+    return el;
+  }
+
+  function updateDynamicMeta(name) {
+    var guestLabel = name || "Tamu Undangan";
+    // md5-free hash ringkas dari nama → stabil per tamu, unik antar tamu
+    var seed = 0;
+    for (var i = 0; i < guestLabel.length; i++) {
+      seed = (seed * 31 + guestLabel.charCodeAt(i)) % 100000;
+    }
+    var uniqueParam = "?v=" + seed + "-" + cacheStamp;
+
+    var title =
+      "Undangan Pernikahan Naufal & Shilvia — " +
+      guestLabel +
+      (!isNgunduhMode ? " | Akad Nikah 4 Oktober 2026" : " | Ngunduh Mantu 5 Oktober 2026");
+    var desc =
+      "Kepada Yth. " +
+      guestLabel +
+      " — Anda diundang dengan hormat menghadiri pernikahan " +
+      COUPLE_NAMES +
+      ", " +
+      (isNgunduhMode ? "Senin 5 Oktober 2026 (Ngunduh Mantu)" : "Minggu 4 Oktober 2026 (Akad Nikah)") +
+      ". Klik untuk membuka undangan.";
+
+    document.title = title;
+
+    metaTag("name=\"description\"").setAttribute("content", desc);
+
+    metaTag("property=\"og:title\"").setAttribute("content", title);
+    metaTag("property=\"og:description\"").setAttribute("content", desc);
+    metaTag("property=\"og:url\"").setAttribute(
+      "content",
+      SITE_BASE_URL + (window.location.search || "")
+    );
+    metaTag("property=\"og:image\"").setAttribute(
+      "content",
+      META_IMAGE + uniqueParam
+    );
+    metaTag("property=\"og:image:type\"").setAttribute("content", "image/jpeg");
+    metaTag("property=\"og:image:width\"").setAttribute("content", "1200");
+    metaTag("property=\"og:image:height\"").setAttribute("content", "630");
+    metaTag("property=\"og:image:alt\"").setAttribute(
+      "content",
+      COUPLE_NAMES + " — " + (isNgunduhMode ? "5 Oktober 2026" : "4 Oktober 2026")
+    );
+
+    metaTag("name=\"twitter:card\"").setAttribute("content", "summary_large_image");
+    metaTag("name=\"twitter:title\"").setAttribute("content", title);
+    metaTag("name=\"twitter:description\"").setAttribute("content", desc);
+    metaTag("name=\"twitter:image\"").setAttribute(
+      "content",
+      META_IMAGE + uniqueParam
+    );
+  }
+
   // Mode ?tp=nm — Ngunduh Mantu (Senin, 5 Oktober 2026)
   var isNgunduhMode =
     new URLSearchParams(window.location.search).get("tp") === "nm";
@@ -63,6 +138,7 @@
       if (splashName) splashName.textContent = guestNameValue;
       if (hint) hint.textContent = "Silakan buka link undangan pribadi Anda";
       updateHeroDesc(guestNameValue);
+      updateDynamicMeta(guestNameValue);
       return;
     }
 
@@ -86,6 +162,7 @@
             hint.textContent =
               "Nama tidak ditemukan, silakan hubungi pengundang";
           updateHeroDesc(guestNameValue);
+          updateDynamicMeta(guestNameValue);
           return;
         }
         guestNameValue = guest.name;
@@ -94,12 +171,14 @@
           hint.textContent =
             "Kode tamu: " + (guest.code || "-") + "  •  " + guest.name;
         updateHeroDesc(guest.name);
+        updateDynamicMeta(guest.name);
       })
       .catch(function () {
         guestNameValue = "Tamu Undangan";
         if (splashName) splashName.textContent = guestNameValue;
         if (hint) hint.textContent = "Gagal memuat data tamu";
         updateHeroDesc(guestNameValue);
+        updateDynamicMeta(guestNameValue);
       });
   }
 
