@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ngunduh Mantu — Naufal & Shilvia</title>
+  <meta
+    name="description"
+    content="Kepada Yth. Tamu Undangan — Anda diundang menghadiri acara Ngunduh Mantu Naufal & Shilvia, Senin 5 Oktober 2026 di Kediaman Pria."
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Ngunduh Mantu Naufal & Shilvia" />
+  <meta property="og:locale" content="id_ID" />
+  <meta property="og:url" content="https://navia.my.id/ot/" />
+  <meta property="og:title" content="Ngunduh Mantu Naufal & Shilvia" />
+  <meta
+    property="og:description"
+    content="Kepada Yth. Tamu Undangan — Anda diundang menghadiri acara Ngunduh Mantu Naufal & Shilvia, Senin 5 Oktober 2026 di Kediaman Pria."
+  />
+  <meta property="og:image" content="https://navia.my.id/assets/images/icon.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="938" />
+  <meta property="og:image:height" content="1083" />
+  <meta property="og:image:alt" content="Naufal &amp; Shilvia — 5 Oktober 2026" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Ngunduh Mantu Naufal & Shilvia" />
+  <meta
+    name="twitter:description"
+    content="Kepada Yth. Tamu Undangan — Anda diundang menghadiri acara Ngunduh Mantu Naufal & Shilvia, Senin 5 Oktober 2026 di Kediaman Pria."
+  />
+  <meta name="twitter:image" content="https://navia.my.id/assets/images/icon.png" />
+  <meta name="theme-color" content="#faf6ef" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="shortcut icon" href="https://navia.my.id/assets/images/icon.png" type="image/x-icon">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --ink: #3b3a36;
+      --ink-soft: #6b6860;
+      --cream: #faf6ef;
+      --card: #ffffff;
+      --line: #ece4d6;
+      --accent: #9c6b3f;
+      --accent-deep: #7d5230;
+      --rose: #d96a6a;
+      --sage: #7d8f6a;
+      --soft: #b9c4a8;
+      --shadow: 0 18px 40px -20px rgba(70, 56, 34, 0.35);
+      --font: 'Plus Jakarta Sans', -apple-system, 'Segoe UI', sans-serif;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --max-width: 28rem;
+    }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: var(--font);
+      background: #efe9dd;
+      color: var(--ink);
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; }
+
+    .app {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      min-height: 100vh;
+      background: var(--cream);
+      overflow-x: hidden;
+      box-shadow: rgba(60, 48, 28, 0.25) 0 0 60px;
+      position: relative;
+    }
+
+    /* ---------- Splash / Buka Undangan ---------- */
+    .splash {
+      position: fixed; inset: 0; z-index: 60;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      background: var(--cream);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem; text-align: center;
+      transition: opacity .6s ease, visibility .6s ease;
+    }
+    .splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .splash-inner { max-width: 22rem; display: flex; flex-direction: column; align-items: center; gap: 1.3rem; }
+    .splash-logo {
+      width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
+      border: 4px solid #fff; box-shadow: var(--shadow); animation: pop .7s ease backwards;
+    }
+    @keyframes pop { 0% { opacity: 0; transform: scale(.7); } 100% { opacity: 1; transform: scale(1); } }
+    .splash-sub { font-size: .8rem; letter-spacing: .28em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; }
+    .splash-names {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: clamp(2rem, 9vw, 2.6rem); line-height: 1.15; color: var(--accent-deep);
+    }
+    .splash-names .amp { font-size: .7em; color: var(--rose); font-weight: 600; }
+    .splash-date { font-size: 1rem; color: var(--ink-soft); font-weight: 600; }
+    .splash-guest-label { font-size: .85rem; color: var(--ink-soft); }
+    .splash-guest-name { font-size: 1.25rem; font-weight: 800; color: var(--ink); }
+    .btn-open {
+      margin-top: .3rem;
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+      color: #fff; font-weight: 800; font-size: 1.05rem;
+      padding: 1rem 3rem; border-radius: 999px;
+      box-shadow: 0 14px 26px -12px rgba(156,107,63,.75);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .btn-open:hover { transform: translateY(-2px); box-shadow: 0 18px 32px -12px rgba(156,107,63,.85); }
+    .btn-open:active { transform: translateY(0); }
+    .btn-open svg { width: 20px; height: 20px; }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      padding: 2.4rem 1.5rem 2.2rem;
+      text-align: center;
+      background:
+        radial-gradient(120% 90% at 50% 0%, rgba(185,196,168,.35), transparent 60%),
+        linear-gradient(180deg, #fdfaf3, var(--cream));
+    }
+    .hero-eyebrow { font-size: .74rem; letter-spacing: .3em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+    .hero-names {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: clamp(2.3rem, 10vw, 2.9rem); line-height: 1.12;
+      color: var(--accent-deep); margin-top: .5rem;
+    }
+    .hero-names .amp { font-size: .68em; color: var(--rose); vertical-align: middle; }
+    .hero-ornament { margin: 1rem auto .7rem; width: 110px; height: 1px; background: linear-gradient(90deg, transparent, var(--soft), transparent); position: relative; }
+    .hero-ornament::after { content: "\2766"; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); background: #fdfaf3; padding: 0 .6rem; color: var(--accent); font-size: .9rem; }
+    .hero-date { font-size: 1.05rem; font-weight: 700; color: var(--ink-soft); }
+    .hero-date-sub { font-size: .85rem; color: var(--ink-soft); margin-top: .15rem; }
+
+    .countdown { display: flex; justify-content: center; gap: .55rem; margin-top: 1.4rem; }
+    .cd-box {
+      flex: 1; max-width: 76px; background: var(--accent-deep); color: #fff;
+      border-radius: 14px; padding: .8rem .2rem; text-align: center;
+    }
+    .cd-num { font-size: 1.6rem; font-weight: 800; line-height: 1; }
+    .cd-label { font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; opacity: .85; margin-top: .25rem; }
+
+    /* ---------- Letter / surat ---------- */
+    .letter { padding: 2.2rem 1.5rem; }
+    .letter-card {
+      background: var(--card); border: 1px solid var(--line); border-radius: 22px;
+      padding: 1.6rem 1.4rem; box-shadow: var(--shadow); text-align: center;
+    }
+    .letter-salam { font-family: var(--font-display); font-style: italic; font-size: 1.15rem; color: var(--accent-deep); font-weight: 600; }
+    .letter-line { width: 44px; height: 2px; background: var(--soft); margin: .9rem auto; border-radius: 2px; }
+    .letter-text { font-size: .98rem; color: var(--ink-soft); }
+    .letter-text strong { color: var(--ink); }
+    .letter-name { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; color: var(--ink); }
+    .letter-name .amp { color: var(--rose); font-size: .8em; }
+
+    /* ---------- Mempelai cards ---------- */
+    .couple { padding: 0 1.5rem 1rem; }
+    .couple-card {
+      background: var(--card); border: 1px solid var(--line); border-radius: 24px;
+      overflow: hidden; box-shadow: var(--shadow); margin-bottom: 1.4rem;
+    }
+    .couple-card-img { width: 100%; height: auto; object-fit: cover; }
+    .couple-card-body { padding: 1rem 1.4rem 1.4rem; text-align: center; }
+    .couple-title {
+      font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--ink);
+      padding: 1.2rem 1rem 0.1rem;
+    }
+    .couple-sub { font-size: .95rem; color: var(--ink-soft); font-weight: 600; }
+    .couple-line { width: 40px; height: 2px; background: var(--soft); margin: .8rem auto; border-radius: 2px; }
+    .couple-tag { display: inline-block; font-size: .82rem; color: var(--accent-deep); background: #f4ecdf; padding: .35rem .9rem; border-radius: 999px; font-weight: 700; }
+    .couple-desc { font-size: .88rem; color: var(--ink-soft); margin-top: .8rem; font-style: italic; font-family: var(--font-display); }
+
+    /* ---------- Ngunduh Mantu event ---------- */
+    .event { padding: 0 1.5rem 2.2rem; }
+    .event-card {
+      background: linear-gradient(160deg, #fffdf8, #f7efe1);
+      border: 1px solid var(--line); border-radius: 24px; padding: 1.8rem 1.4rem;
+      box-shadow: var(--shadow); text-align: center;
+    }
+    .event-title { font-family: var(--font-display); font-size: clamp(1.8rem, 8vw, 2.2rem); font-weight: 700; color: var(--accent-deep); }
+    .event-sub { color: var(--ink-soft); font-size: .92rem; margin-top: .3rem; }
+    .event-ornament { margin: 1.1rem auto .7rem; width: 110px; height: 1px; background: linear-gradient(90deg, transparent, var(--soft), transparent); position: relative; }
+    .event-ornament::after { content: "\2766"; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); background: #f7efe1; padding: 0 .6rem; color: var(--accent); font-size: .9rem; }
+    .event-desc { font-size: .92rem; color: var(--ink-soft); max-width: 22rem; margin: 0 auto; }
+    .event-details { display: grid; gap: .8rem; margin-top: 1.4rem; text-align: left; }
+    .event-detail {
+      display: flex; align-items: center; gap: .95rem; background: var(--card);
+      border: 1px solid var(--line); border-radius: 16px; padding: .9rem 1rem;
+    }
+    .event-detail-icon {
+      flex-shrink: 0; width: 44px; height: 44px; border-radius: 13px; display: flex;
+      align-items: center; justify-content: center; color: #fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+    }
+    .event-detail-icon.sage { background: linear-gradient(135deg, var(--sage), #64785a); }
+    .event-detail-icon.rose { background: linear-gradient(135deg, var(--rose), #b34c4c); }
+    .event-detail-label { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); font-weight: 700; }
+    .event-detail-value { font-weight: 800; color: var(--ink); font-size: 1rem; margin-top: .1rem; }
+    .event-detail-value small { font-weight: 600; color: var(--ink-soft); }
+    .event-map {
+      margin-top: 1.2rem; width: 100%;
+      display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent-deep)); color: #fff;
+      font-weight: 800; font-size: 1rem; padding: .95rem; border-radius: 999px;
+      box-shadow: 0 14px 26px -12px rgba(156,107,63,.75);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .event-map:hover { transform: translateY(-2px); }
+
+    /* ---------- Music player (docked footer bar) ---------- */
+    .music-player {
+      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%) translateY(110%);
+      width: 100%; max-width: var(--max-width); z-index: 55;
+      background: rgba(61, 48, 30, .97); backdrop-filter: blur(10px);
+      color: #fff; padding: .6rem .9rem;
+      display: flex; align-items: center; gap: .7rem;
+      border-radius: 18px 18px 0 0;
+      box-shadow: 0 -12px 30px -12px rgba(0,0,0,.45);
+      transition: transform .4s ease;
+    }
+    .music-player.visible { transform: translateX(-50%) translateY(0); }
+    .music-disc {
+      width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+      background: radial-gradient(circle at 40% 35%, #f2e3c8, var(--accent) 70%);
+      display: flex; align-items: center; justify-content: center; color: #fff;
+    }
+    .music-player.playing .music-disc { animation: spin 4s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .music-info { flex: 1; min-width: 0; }
+    .music-title { font-size: .82rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .music-artist { font-size: .68rem; color: rgba(255,255,255,.65); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .music-toggle {
+      flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%;
+      background: #fff; color: var(--accent-deep); display: flex; align-items: center; justify-content: center;
+      transition: transform .15s ease;
+    }
+    .music-toggle:active { transform: scale(.92); }
+
+    /* ---------- Closing ---------- */
+    .closing { padding: 0 1.5rem 1.5rem; }
+    .closing-card {
+      background: var(--card); border: 1px solid var(--line); border-radius: 22px;
+      padding: 1.7rem 1.4rem; box-shadow: var(--shadow); text-align: center;
+    }
+    .closing-quote { font-family: var(--font-display); font-style: italic; font-size: 1.05rem; color: var(--accent-deep); line-height: 1.6; }
+    .closing-quote em { color: var(--rose); }
+    .closing-salute { font-size: .85rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); margin-top: .9rem; }
+    .closing-sign { margin-top: .35rem; font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; color: var(--ink); }
+    .closing-sign .amp { color: var(--rose); font-size: .8em; }
+    .footer { text-align: center; padding: 1rem 1.5rem 7.5rem; font-size: .78rem; color: var(--ink-soft); }
+    .footer-names { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; color: var(--accent-deep); }
+    .footer-names .amp { color: var(--rose); }
+
+    /* reveal on scroll */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+  <!-- ===== 1. BUKA UNDANGAN ===== -->
+  <div class="splash" id="splash">
+    <div class="splash-inner">
+      <img class="splash-logo" src="../assets/images/icon.png" alt="Naufal & Shilvia" width="120" height="120" />
+      <div class="splash-sub">Ngunduh Mantu</div>
+      <div class="splash-names">Naufal <span class="amp">&amp;</span> Shilvia</div>
+      <div class="splash-date">Senin, 5 Oktober 2026</div>
+      <div class="splash-guest-label">Kepada Yth. Bapak/Ibu/Saudara/i</div>
+      <div class="splash-guest-name" id="guest-name">Tamu Undangan</div>
+      <button class="btn-open" id="open-btn" type="button">
+        Buka Undangan
+      </button>
+    </div>
+  </div>
+
+  <audio id="bg-music" src="../assets/audio/0t-1.mp3" preload="metadata" loop></audio>
+
+  <div class="app">
+
+    <!-- ===== 2. HERO ===== -->
+    <header class="hero">
+      <div class="hero-eyebrow">Ngunduh Mantu</div>
+      <h1 class="hero-names reveal in">Naufal <span class="amp">&amp;</span> Shilvia</h1>
+      <div class="hero-ornament"></div>
+      <div class="hero-date">Senin, 5 Oktober 2026</div>
+      <div class="hero-date-sub">Pukul 13.00 WIB — Kediaman Pria</div>
+
+      <div class="countdown reveal" id="countdown">
+        <div class="cd-box"><div class="cd-num" id="cd-d">00</div><div class="cd-label">Hari</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-h">00</div><div class="cd-label">Jam</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-m">00</div><div class="cd-label">Menit</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-s">00</div><div class="cd-label">Detik</div></div>
+      </div>
+    </header>
+
+    <!-- ===== SURAT PEMBUKA ===== -->
+    <section class="letter">
+      <div class="letter-card reveal">
+        <div class="letter-salam">Assalamu'alaikum Wr. Wb.</div>
+        <div class="letter-line"></div>
+        <p class="letter-text">
+          Dengan memohon rahmat dan ridha Allah SWT, kami mengundang
+          Bapak/Ibu/Saudara/i untuk berkenan hadir memberikan doa restu
+          dalam acara ngunduh mantu kami:
+        </p>
+        <div class="letter-line"></div>
+        <div class="letter-name">Naufal <span class="amp">&amp;</span> Shilvia</div>
+      </div>
+    </section>
+
+    <!-- ===== MEMPELAI PRIA ===== -->
+    <section class="couple">
+      <div class="couple-card reveal">
+        <img class="couple-card-img" src="../assets/images/pria.jpeg" alt="Naufal" width="400" />
+        <div class="couple-card-body">
+          <h3 class="couple-title">Mempelai Pria</h3>
+          <div class="couple-name">Naufal</div>
+          <div class="couple-sub">Rizqi Arrafi</div>
+          <div class="couple-line"></div>
+          <span class="couple-tag">Putra Ke Dua</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MEMPELAI WANITA ===== -->
+    <section class="couple">
+      <div class="couple-card reveal">
+        <img class="couple-card-img" src="../assets/images/wanita.jpeg" alt="Shilvia" width="400" />
+        <div class="couple-card-body">
+          <h3 class="couple-title">Mempelai Wanita</h3>
+          <div class="couple-name">Shilvia</div>
+          <div class="couple-sub">Agatha Punky Widianarti</div>
+          <div class="couple-line"></div>
+          <span class="couple-tag">Putri Pertama</span>
+        </div>
+      </div>
+    </section>
+<!-- ===== DETAIL NGUNDUH MANTU ===== -->
+    <section class="event">
+      <div class="event-card reveal">
+        <h3 class="event-title">Ngunduh Mantu</h3>
+        <div class="event-sub">The Homecoming — selamat datang &amp; syukuran</div>
+        <div class="event-ornament"></div>
+        <p class="event-desc">
+          Hari ketika seorang putri datang bukan sebagai tamu, melainkan
+          sebagai bagian dari keluarga yang baru. Disambut dengan kasih,
+          diterima dengan tulus, dan diiringi doa restu.
+        </p>
+
+        <div class="event-details">
+          <div class="event-detail">
+            <div class="event-detail-icon">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div>
+              <div class="event-detail-label">Tanggal</div>
+              <div class="event-detail-value">Senin, 5 Oktober 2026</div>
+            </div>
+          </div>
+          <div class="event-detail">
+            <div class="event-detail-icon sage">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <div class="event-detail-label">Waktu</div>
+              <div class="event-detail-value">Pukul 13.00 <small>WIB — Selesai</small></div>
+            </div>
+          </div>
+          <div class="event-detail">
+            <div class="event-detail-icon rose">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="event-detail-label">Lokasi</div>
+              <div class="event-detail-value">Kediaman Pria</div>
+            </div>
+          </div>
+        </div>
+
+        <a class="event-map" href="https://maps.app.goo.gl/o9PoSwq9K82DGqUu6" target="_blank" rel="noopener">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+          Lihat Lokasi di Peta
+        </a>
+      </div>
+    </section>
+
+    <!-- ===== 7. SURAT PENUTUP ===== -->
+    <section class="closing">
+      <div class="closing-card reveal">
+        <p class="closing-quote">
+          "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila
+          Bapak/Ibu/Saudara/i berkenan hadir. Kehadiran serta doa restu Anda
+          menjadi kebahagiaan tersendiri bagi kami."
+        </p>
+        <div class="letter-line"></div>
+        <div class="closing-salute">Salam Hormat</div>
+        <div class="closing-sign">Naufal <span class="amp">&amp;</span> Shilvia</div>
+        <div style="margin:.3rem 0 1.2rem;">Wassalamu'alaikum Wr. Wb.</div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>&copy; 2026 Naufal &amp; Shilvia</div>
+      <div style="margin-top:.3rem;">Dibuat dengan <span style="color:var(--rose);">&#10084;</span> untuk Bapak/Ibu</div>
+    </footer>
+
+  </div>
+  <!-- /app -->
+
+  <!-- ===== 6. MUSIC PLAYER ===== -->
+  <div class="music-player" id="music-player">
+    <div class="music-disc" id="music-disc">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+    </div>
+    <div class="music-info">
+      <div class="music-title">Surat Cinta</div>
+      <div class="music-artist">Vina Panduwinata</div>
+    </div>
+    <button class="music-toggle" id="music-toggle" type="button" aria-label="Toggle music">
+      <svg id="music-icon-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M8 5v14l11-7z"/></svg>
+      <svg id="music-icon-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="display:none"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+    </button>
+  </div>
+<script>
+    (function () {
+      "use strict";
+
+      // ===== Guest name from ?to= =====
+      var params = new URLSearchParams(window.location.search);
+      var slug = params.get("to");
+      var guestEl = document.getElementById("guest-name");
+
+      // ===== Site / meta constants (pola umum → mirror assets/js/app.js) =====
+      var SITE_BASE_URL = "https://navia.my.id/ot/";
+      var META_IMAGE = "https://navia.my.id/assets/images/icon.png";
+      var CACHE_DATE = encodeURIComponent(new Date().toISOString().slice(0, 10));
+
+      function metaTag(attr, name) {
+        var el = document.querySelector('meta[' + attr + '="' + name + '"]');
+        if (!el) {
+          el = document.createElement("meta");
+          el.setAttribute(attr, name);
+          document.head.appendChild(el);
+        }
+        return el;
+      }
+
+      function applyName(name) {
+        var guestLabel = name || "Tamu Undangan";
+        if (guestEl) guestEl.textContent = guestLabel;
+
+        // Hash ringkas stabil per nama tamu → cache sosial (WA/FB/Twitter) ter-refresh per tamu & tanggal
+        var seed = 0;
+        for (var i = 0; i < guestLabel.length; i++) {
+          seed = (seed * 31 + guestLabel.charCodeAt(i)) % 100000;
+        }
+        var uniqueParam = "?v=" + seed + "-" + CACHE_DATE;
+
+        var title =
+          "Undangan Ngunduh Mantu Naufal & Shilvia — " +
+          guestLabel +
+          " | Senin, 5 Oktober 2026";
+        var desc =
+          "Kepada Yth. " +
+          guestLabel +
+          " — Anda diundang menghadiri acara Ngunduh Mantu Naufal & Shilvia, " +
+          "Senin 5 Oktober 2026 pukul 13.00 WIB di Kediaman Pria. Klik untuk membuka undangan.";
+
+        document.title = title;
+        metaTag("name", "description").setAttribute("content", desc);
+        metaTag("property", "og:title").setAttribute("content", title);
+        metaTag("property", "og:description").setAttribute("content", desc);
+        metaTag("property", "og:url").setAttribute(
+          "content",
+          SITE_BASE_URL + (window.location.search || "")
+        );
+        metaTag("property", "og:image").setAttribute("content", META_IMAGE + uniqueParam);
+        metaTag("property", "og:image:alt").setAttribute(
+          "content",
+          "Naufal & Shilvia — 5 Oktober 2026"
+        );
+        metaTag("name", "twitter:title").setAttribute("content", title);
+        metaTag("name", "twitter:description").setAttribute("content", desc);
+        metaTag("name", "twitter:image").setAttribute("content", META_IMAGE + uniqueParam);
+      }
+
+      // Nama tamu = nilai ?to= langsung (otomatis ter-decode oleh URLSearchParams)
+      applyName(slug ? slug.replace(/\s+/g, " ").trim() : "");
+
+      // ===== Splash open =====
+      var splash = document.getElementById("splash");
+      document.getElementById("open-btn").addEventListener("click", function () {
+        splash.classList.add("hidden");
+        document.body.style.overflow = "";
+        musicPlayer.classList.add("visible");
+        bgMusic.play().catch(function () {});
+      });
+      document.body.style.overflow = "hidden";
+
+      // ===== Music =====
+      var bgMusic = document.getElementById("bg-music");
+      var musicPlayer = document.getElementById("music-player");
+      var musicToggle = document.getElementById("music-toggle");
+      var musicIconPlay = document.getElementById("music-icon-play");
+      var musicIconPause = document.getElementById("music-icon-pause");
+      var isPlaying = false;
+
+      function setPlaying(playing) {
+        isPlaying = playing;
+        musicPlayer.classList.toggle("playing", playing);
+        musicIconPlay.style.display = playing ? "none" : "block";
+        musicIconPause.style.display = playing ? "block" : "none";
+      }
+
+      function toggleMusic() {
+        if (bgMusic.paused) {
+          bgMusic.play().catch(function () {});
+        } else {
+          bgMusic.pause();
+        }
+      }
+
+      bgMusic.addEventListener("play", function () { setPlaying(true); });
+      bgMusic.addEventListener("pause", function () { setPlaying(false); });
+      bgMusic.addEventListener("ended", function () { setPlaying(false); });
+
+      musicToggle.addEventListener("click", toggleMusic);
+
+      // ===== Countdown to 5 Oct 2026 13:00 WIB =====
+      var target = new Date("2026-10-05T13:00:00+07:00").getTime();
+      var cells = {
+        d: document.getElementById("cd-d"),
+        h: document.getElementById("cd-h"),
+        m: document.getElementById("cd-m"),
+        s: document.getElementById("cd-s")
+      };
+      function pad(n) { return n < 10 ? "0" + n : String(n); }
+      function tick() {
+        var diff = target - Date.now();
+        var d = 0, h = 0, m = 0, s = 0;
+        if (diff > 0) {
+          d = Math.floor(diff / 86400000);
+          h = Math.floor((diff % 86400000) / 3600000);
+          m = Math.floor((diff % 3600000) / 60000);
+          s = Math.floor((diff % 60000) / 1000);
+        }
+        cells.d.textContent = pad(d);
+        cells.h.textContent = pad(h);
+        cells.m.textContent = pad(m);
+        cells.s.textContent = pad(s);
+      }
+      tick();
+      setInterval(tick, 1000);
+
+      // ===== Reveal on scroll =====
+      var observed = document.querySelectorAll(".reveal");
+      if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.1 });
+        observed.forEach(function (el) { io.observe(el); });
+      } else {
+        observed.forEach(function (el) { el.classList.add("in"); });
+      }
+    })();
+  </script>
+</body>
+</html>
