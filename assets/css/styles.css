@@ -870,6 +870,10 @@ a {
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
 }
 
+.event-resepsi-bg {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+}
+
 .event-ngunduh-bg {
   background: linear-gradient(135deg, #2d1b3d 0%, #44204a 40%, #6b2150 100%);
 }

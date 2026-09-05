@@ -42,23 +42,39 @@
   // Query unik per nama tamu & tanggal agar cache sosial (WhatsApp/FB/Twitter) ter-refresh
   var cacheStamp = encodeURIComponent(new Date().toISOString().slice(0, 10));
 
-  function metaTag(selector) {
-    var el = document.querySelector(selector);
+  function metaTag(attr, name) {
+    var el = document.querySelector('meta[' + attr + '="' + name + '"]');
     if (!el) {
       el = document.createElement("meta");
-      if (selector.indexOf("property=") === 0) {
-        el.setAttribute("property", selector.slice(9, -1));
-      } else if (selector.indexOf("name=") === 0) {
-        el.setAttribute("name", selector.slice(5, -1));
-      }
+      el.setAttribute(attr, name);
       document.head.appendChild(el);
-      return el;
     }
     return el;
   }
 
+  // Info acara per tipe tamu — sinkron dgn templates.json & index.html
+  var EVENT_INFO = {
+    akad: {
+      titleSuffix: " | Akad & Resepsi — 4 Oktober 2026",
+      brief:
+        "Minggu, 4 Oktober 2026 — Akad Nikah pukul 09.00 WIB dan Resepsi pukul 11.00-13.00 WIB di Kediaman Putri",
+      metaDate: "4 Oktober 2026",
+    },
+    nm: {
+      titleSuffix: " | Ngunduh Mantu — 5 Oktober 2026",
+      brief:
+        "Senin, 5 Oktober 2026 — Ngunduh Mantu pukul 13.00 WIB di Kediaman Pria",
+      metaDate: "5 Oktober 2026",
+    },
+  };
+
+  function currentEventKey() {
+    return isNgunduhMode ? "nm" : "akad";
+  }
+
   function updateDynamicMeta(name) {
     var guestLabel = name || "Tamu Undangan";
+    var info = EVENT_INFO[currentEventKey()];
     // md5-free hash ringkas dari nama → stabil per tamu, unik antar tamu
     var seed = 0;
     for (var i = 0; i < guestLabel.length; i++) {
@@ -67,47 +83,59 @@
     var uniqueParam = "?v=" + seed + "-" + cacheStamp;
 
     var title =
-      "Undangan Pernikahan Naufal & Shilvia — " +
-      guestLabel +
-      (!isNgunduhMode ? " | Akad Nikah 4 Oktober 2026" : " | Ngunduh Mantu 5 Oktober 2026");
+      "Undangan Pernikahan Naufal & Shilvia — " + guestLabel + info.titleSuffix;
     var desc =
       "Kepada Yth. " +
       guestLabel +
-      " — Anda diundang dengan hormat menghadiri pernikahan " +
+      " — Anda diundang menghadiri pernikahan " +
       COUPLE_NAMES +
-      ", " +
-      (isNgunduhMode ? "Senin 5 Oktober 2026 (Ngunduh Mantu)" : "Minggu 4 Oktober 2026 (Akad Nikah)") +
+      " pada " +
+      info.brief +
       ". Klik untuk membuka undangan.";
 
     document.title = title;
 
-    metaTag("name=\"description\"").setAttribute("content", desc);
+    metaTag("name", "description").setAttribute("content", desc);
 
-    metaTag("property=\"og:title\"").setAttribute("content", title);
-    metaTag("property=\"og:description\"").setAttribute("content", desc);
-    metaTag("property=\"og:url\"").setAttribute(
+    metaTag("property", "og:title").setAttribute("content", title);
+    metaTag("property", "og:description").setAttribute("content", desc);
+    metaTag("property", "og:url").setAttribute(
       "content",
       SITE_BASE_URL + (window.location.search || "")
     );
-    metaTag("property=\"og:image\"").setAttribute(
+    metaTag("property", "og:image").setAttribute(
       "content",
       META_IMAGE + uniqueParam
     );
-    metaTag("property=\"og:image:type\"").setAttribute("content", "image/jpeg");
-    metaTag("property=\"og:image:width\"").setAttribute("content", "1200");
-    metaTag("property=\"og:image:height\"").setAttribute("content", "630");
-    metaTag("property=\"og:image:alt\"").setAttribute(
+    metaTag("property", "og:image:type").setAttribute("content", "image/jpeg");
+    metaTag("property", "og:image:width").setAttribute("content", "1200");
+    metaTag("property", "og:image:height").setAttribute("content", "630");
+    metaTag("property", "og:image:alt").setAttribute(
       "content",
-      COUPLE_NAMES + " — " + (isNgunduhMode ? "5 Oktober 2026" : "4 Oktober 2026")
+      COUPLE_NAMES + " — " + info.metaDate
     );
 
-    metaTag("name=\"twitter:card\"").setAttribute("content", "summary_large_image");
-    metaTag("name=\"twitter:title\"").setAttribute("content", title);
-    metaTag("name=\"twitter:description\"").setAttribute("content", desc);
-    metaTag("name=\"twitter:image\"").setAttribute(
+    metaTag("name", "twitter:card").setAttribute("content", "summary_large_image");
+    metaTag("name", "twitter:title").setAttribute("content", title);
+    metaTag("name", "twitter:description").setAttribute("content", desc);
+    metaTag("name", "twitter:image").setAttribute(
       "content",
       META_IMAGE + uniqueParam
     );
+  }
+
+  // Terapkan ulang hal-hal yang bergantung mode (akad/nm) — dipanggil lagi
+  // setelah type tamu diketahui dari guests.json
+  function applyGuestMode() {
+    heroMainDate = isNgunduhMode ? "5 Oktober 2026" : "4 Oktober 2026";
+    var splashDateEl = document.querySelector(".splash-date");
+    if (splashDateEl)
+      splashDateEl.textContent = isNgunduhMode
+        ? "Senin, 5 Oktober 2026"
+        : "Minggu, 4 Oktober 2026";
+    var heroDateEl = document.querySelector(".hero-date-text");
+    if (heroDateEl) heroDateEl.textContent = heroMainDate;
+    setupEventVisibility();
   }
 
   // Mode ?tp=nm — Ngunduh Mantu (Senin, 5 Oktober 2026)
@@ -137,6 +165,7 @@
       guestNameValue = "Tamu Undangan";
       if (splashName) splashName.textContent = guestNameValue;
       if (hint) hint.textContent = "Silakan buka link undangan pribadi Anda";
+      applyGuestMode();
       updateHeroDesc(guestNameValue);
       updateDynamicMeta(guestNameValue);
       return;
@@ -161,6 +190,7 @@
           if (hint)
             hint.textContent =
               "Nama tidak ditemukan, silakan hubungi pengundang";
+          applyGuestMode();
           updateHeroDesc(guestNameValue);
           updateDynamicMeta(guestNameValue);
           return;
@@ -170,6 +200,9 @@
         if (hint)
           hint.textContent =
             "Kode tamu: " + (guest.code || "-") + "  •  " + guest.name;
+        // Type tamu dari guests.json (akad|nm) — sumber kebenaran mode acara
+        isNgunduhMode = guest.tp === "nm";
+        applyGuestMode();
         updateHeroDesc(guest.name);
         updateDynamicMeta(guest.name);
       })
@@ -177,6 +210,7 @@
         guestNameValue = "Tamu Undangan";
         if (splashName) splashName.textContent = guestNameValue;
         if (hint) hint.textContent = "Gagal memuat data tamu";
+        applyGuestMode();
         updateHeroDesc(guestNameValue);
         updateDynamicMeta(guestNameValue);
       });
@@ -191,6 +225,27 @@
         ", di antara sekian banyak pertemuan yang ditulis semesta, kami menemukan satu sama lain. Kini, pada " +
         heroMainDate +
         ", kami ingin mengabadikan satu babak paling indah dalam perjalanan ini. Hadirlah, dan menjadi bagian dari cerita yang akan kami kenang sepanjang usia.";
+    }
+  }
+
+  // ========== EVENT VISIBILITY (Akad/Resepsi vs Akad/Ngunduh Mantu) ==========
+  // type=akad atau default → tampilkan Akad + Resepsi (sembunyikan Ngunduh Mantu)
+  // type=nm           → tampilkan Akad + Ngunduh Mantu saja (sembunyikan Resepsi)
+  function setupEventVisibility() {
+    var akad = document.getElementById("event-akad");
+    var resepsi = document.getElementById("event-resepsi");
+    var ngunduh = document.getElementById("event-ngunduh");
+
+    if (isNgunduhMode) {
+      // Mode nm: tanpa Resepsi
+      if (akad) akad.style.display = "";
+      if (resepsi) resepsi.style.display = "none";
+      if (ngunduh) ngunduh.style.display = "";
+    } else {
+      // Akad/default: tampilkan Resepsi, sembunyikan Ngunduh Mantu
+      if (akad) akad.style.display = "";
+      if (resepsi) resepsi.style.display = "";
+      if (ngunduh) ngunduh.style.display = "none";
     }
   }
 
@@ -659,18 +714,12 @@
 
   // ========== COUNTDOWN ==========
   function startCountdown() {
-    var weddingDate = (
-      isNgunduhMode
-        ? new Date("2026-10-05T13:00:00+07:00") // Senin, 5 Oktober 2026 pukul 13:00
-        : new Date("2026-10-04T09:00:00+07:00")
-    ).getTime(); // Minggu, 4 Oktober 2026 pukul 09:00
-
-    // Tanggal yang tertera di cover & hero menyesuaikan parameter ?tp=nm
-    if (isNgunduhMode) {
-      var splashDateEl = document.querySelector(".splash-date");
-      if (splashDateEl) splashDateEl.textContent = "Senin, 5 Oktober 2026";
-      var heroDateEl = document.querySelector(".hero-date-text");
-      if (heroDateEl) heroDateEl.textContent = heroMainDate;
+    function targetTime() {
+      return (
+        isNgunduhMode
+          ? new Date("2026-10-05T13:00:00+07:00") // Senin, 5 Oktober 2026 pukul 13:00
+          : new Date("2026-10-04T09:00:00+07:00")
+      ).getTime(); // Minggu, 4 Oktober 2026 pukul 09:00
     }
 
     var heroEls = {
@@ -689,7 +738,7 @@
       return n < 10 ? "0" + n : String(n);
     }
     function tick() {
-      var diff = weddingDate - Date.now();
+      var diff = targetTime() - Date.now();
       var days = 0,
         hours = 0,
         mins = 0,
@@ -714,6 +763,7 @@
   // Inisialisasi guest & splash
   startCountdown();
   initGuestFromUrl();
+  setupEventVisibility();
 
   // ========== NETFLIX-STYLE LOADER ==========
   var netflixLoader = document.getElementById("netflix-loader");
