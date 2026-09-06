@@ -619,14 +619,14 @@
 
   // ========== WEBTOON STORY READER ==========
   const storyData = [
-    { id: 1, title: "Episode 1 — The Meeting", file: "1.png" },
-    { id: 2, title: "Episode 2 — Growing Together", file: "2.png" },
-    { id: 3, title: "Episode 3 — Different Paths", file: "3.png" },
+    { id: 1, title: "Episode 1 — The Meeting", file: "1.jpg" },
+    { id: 2, title: "Episode 2 — Growing Together", file: "2.jpg" },
+    { id: 3, title: "Episode 3 — Different Paths", file: "3.jpg" },
     { id: 4, title: "Episode 4 — Chasing Dreams", file: "4.png" },
     { id: 5, title: "Episode 5 — The Realization", file: "5.png" },
-    { id: 6, title: "Episode 6 - The Proposal", file: "6.png" },
-    { id: 7, title: "Episode 7 - Forever Begins", file: "7.png" },
-    { id: 8, title: "Episode 8 - Our Happily Ever After", file: "8.png" },
+    { id: 6, title: "Episode 6 - The Proposal", file: "6.jpg" },
+    { id: 7, title: "Episode 7 - Forever Begins", file: "7.jpg" },
+    { id: 8, title: "Episode 8 - Our Happily Ever After", file: "8.jpg" },
   ];
 
   const storyModal = document.getElementById("storyModal");

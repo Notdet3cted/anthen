@@ -33,3 +33,6 @@ logs/
 # --- Coverage / Test ---
 coverage/
 *.lcov
+
+# --- Optimasi asset: backup asli (tidak di-deploy) ---
+_bak_*/

@@ -279,7 +279,7 @@
     </div>
   </div>
 
-  <audio id="bg-music" src="../assets/audio/0t-1.mp3" preload="metadata" loop></audio>
+  <audio id="bg-music" src="../assets/audio/ot-1.mp3" preload="metadata" loop></audio>
 
   <div class="app">
 
@@ -317,7 +317,7 @@
     <!-- ===== MEMPELAI PRIA ===== -->
     <section class="couple">
       <div class="couple-card reveal">
-        <img class="couple-card-img" src="../assets/images/pria.jpeg" alt="Naufal" width="400" />
+        <img class="couple-card-img" src="../assets/images/pria.jpeg" alt="Naufal" width="400" loading="lazy" decoding="async" />
         <div class="couple-card-body">
           <h3 class="couple-title">Mempelai Pria</h3>
           <div class="couple-name">Naufal</div>
@@ -331,7 +331,7 @@
     <!-- ===== MEMPELAI WANITA ===== -->
     <section class="couple">
       <div class="couple-card reveal">
-        <img class="couple-card-img" src="../assets/images/wanita.jpeg" alt="Shilvia" width="400" />
+        <img class="couple-card-img" src="../assets/images/wanita.jpeg" alt="Shilvia" width="400" loading="lazy" decoding="async" />
         <div class="couple-card-body">
           <h3 class="couple-title">Mempelai Wanita</h3>
           <div class="couple-name">Shilvia</div>
@@ -498,8 +498,7 @@
       document.getElementById("open-btn").addEventListener("click", function () {
         splash.classList.add("hidden");
         document.body.style.overflow = "";
-        musicPlayer.classList.add("visible");
-        bgMusic.play().catch(function () {});
+        playFromOpen();
       });
       document.body.style.overflow = "hidden";
 
@@ -520,10 +519,27 @@
 
       function toggleMusic() {
         if (bgMusic.paused) {
-          bgMusic.play().catch(function () {});
+          musicPlayer.classList.add("playing");
+          bgMusic.play().then(function () {
+            setPlaying(true);
+          }).catch(function () {
+            setPlaying(false);
+          });
         } else {
           bgMusic.pause();
+          setPlaying(false);
         }
+      }
+
+      function playFromOpen() {
+        musicPlayer.classList.add("visible");
+        musicPlayer.classList.add("playing");
+        bgMusic.play().then(function () {
+          setPlaying(true);
+        }).catch(function () {
+          // autoplay diblokir / file gagal dimuat → tetap beri sinyal visual
+          setPlaying(false);
+        });
       }
 
       bgMusic.addEventListener("play", function () { setPlaying(true); });
