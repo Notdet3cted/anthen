@@ -155,6 +155,18 @@
   ];
 
   // ========== GUEST FROM URL (local JSON) ==========
+  // Temukan tamu: utamakan tp dari URL (?tp=nm) agar nama kembar antar grup
+  // (mis. Anisa di akad & nm) terselesaikan sesuai tipe link.
+  function findGuest(guests, slug, tp) {
+    var firstMatch = null;
+    for (var i = 0; i < guests.length; i++) {
+      if (guests[i].slug !== slug) continue;
+      if (!firstMatch) firstMatch = guests[i];
+      if (tp && guests[i].tp === tp) return guests[i];
+    }
+    return firstMatch;
+  }
+
   function initGuestFromUrl() {
     var params = new URLSearchParams(window.location.search);
     var slug = params.get("to");
@@ -177,12 +189,11 @@
       })
       .then(function (data) {
         var guests = data && data.guests ? data.guests : [];
-        var guest = null;
-        for (var i = 0; i < guests.length; i++) {
-          if (guests[i].slug === slug) {
-            guest = guests[i];
-            break;
-          }
+        // Tamu tipe OT diarahkan ke halaman khusus /ot/
+        var guest = findGuest(guests, slug, params.get("tp"));
+        if (guest && guest.tp === "ot") {
+          window.location.replace(SITE_BASE_URL + "ot/?to=" + encodeURIComponent(guest.slug));
+          return;
         }
         if (!guest) {
           guestNameValue = "Tamu Undangan";

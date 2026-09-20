@@ -146,6 +146,11 @@
       color: #4ade80;
       border-color: rgba(37, 211, 102, .35);
     }
+    .guest-code-ot {
+      background: rgba(251, 191, 36, .12);
+      color: #fbbf24;
+      border-color: rgba(251, 191, 36, .35);
+    }
     .btn {
       font-family: inherit;
       font-size: 12px;
@@ -387,6 +392,10 @@
         <div class="stat-value" id="stat-nm">0</div>
         <div class="stat-label">Tamu Ngunduh Mantu (Pria)</div>
       </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-ot">0</div>
+        <div class="stat-label">Tamu OT (Orang Tua)</div>
+      </div>
     </div>
 
     <!-- Daftar Tamu -->
@@ -410,6 +419,7 @@
         <button class="filter-tab active" type="button" data-filter="all">Semua</button>
         <button class="filter-tab" type="button" data-filter="akad">Akad Nikah (Putri)</button>
         <button class="filter-tab" type="button" data-filter="nm">Ngunduh Mantu (Pria)</button>
+        <button class="filter-tab" type="button" data-filter="ot">OT (Orang Tua)</button>
       </div>
 
       <div id="guest-list"></div>
@@ -435,6 +445,7 @@
       'use strict';
 
       var BASE_URL = 'https://navia.my.id/';
+      var OT_BASE_URL = 'https://navia.my.id/ot/';
       var guests = [];
       var templates = [];
       var selectedTemplateId = null;
@@ -449,6 +460,7 @@
       var statTemplate = document.getElementById('stat-template');
       var statAkad = document.getElementById('stat-akad');
       var statNm = document.getElementById('stat-nm');
+      var statOt = document.getElementById('stat-ot');
       var filterTabs = document.getElementById('filter-tabs');
 
       var ADMIN_PASSWORD = 'navia2026'; // ⚠️ Ganti dengan kata sandi Anda
@@ -517,9 +529,12 @@
           templates = (results[1] && results[1].templates) || [];
           statTamu.textContent = guests.length;
           statTemplate.textContent = templates.length;
-          var akadCount = guests.filter(function (g) { return !isNmGuest(g); }).length;
+          var akadCount = guests.filter(isAkadGuest).length;
+          var nmCount = guests.filter(isNmGuest).length;
+          var otCount = guests.filter(isOtGuest).length;
           statAkad.textContent = akadCount;
-          statNm.textContent = guests.length - akadCount;
+          statNm.textContent = nmCount;
+          statOt.textContent = otCount;
           if (templates.length) {
             selectedTemplateId = templates[0].id;
             renderTemplateSelect();
@@ -536,6 +551,14 @@
           if (templates[i].id === id) return templates[i];
         }
         return templates[0] || null;
+      }
+
+      function isOtGuest(guest) {
+        return !!guest && guest.tp === 'ot';
+      }
+
+      function isAkadGuest(guest) {
+        return !!guest && guest.tp === 'akad';
       }
 
       function isNmGuest(guest) {
@@ -561,6 +584,7 @@
       }
 
       function guestLink(guest) {
+        if (isOtGuest(guest)) return OT_BASE_URL + '?to=' + guest.slug;
         return BASE_URL + '?to=' + guest.slug + (isNmGuest(guest) ? '&tp=nm' : '');
       }
 
@@ -607,7 +631,8 @@
         var filtered = guests.filter(function (g) {
           var matchGroup =
             currentFilter === 'all' ||
-            (currentFilter === 'nm' ? isNmGuest(g) : !isNmGuest(g));
+            (currentFilter === 'akad' ? isAkadGuest(g) :
+              currentFilter === 'nm' ? isNmGuest(g) : isOtGuest(g));
           var matchQ =
             !q ||
             g.name.toLowerCase().indexOf(q) !== -1 ||
@@ -622,14 +647,18 @@
 
         guestListEl.innerHTML = '';
 
-        var akadList = filtered.filter(function (g) { return !isNmGuest(g); });
-        var nmList = filtered.filter(function (g) { return isNmGuest(g); });
+        var akadList = filtered.filter(isAkadGuest);
+        var nmList = filtered.filter(isNmGuest);
+        var otList = filtered.filter(isOtGuest);
 
-        if (currentFilter !== 'nm' && akadList.length) {
+        if (currentFilter !== 'nm' && currentFilter !== 'ot' && akadList.length) {
           renderGuestGroup('👰 Tamu Akad Nikah — Kediaman Putri', akadList);
         }
-        if (currentFilter !== 'akad' && nmList.length) {
+        if (currentFilter !== 'akad' && currentFilter !== 'ot' && nmList.length) {
           renderGuestGroup('🤵 Tamu Ngunduh Mantu — Kediaman Pria', nmList);
+        }
+        if (currentFilter !== 'akad' && currentFilter !== 'nm' && otList.length) {
+          renderGuestGroup('🧓 Tamu OT — Orang Tua', otList);
         }
       }
 
@@ -672,9 +701,15 @@
         var code = guestCode(guest);
         if (code) {
           var codeEl = document.createElement('span');
-          codeEl.className = 'guest-code' + (isNmGuest(guest) ? ' guest-code-nm' : '');
+          codeEl.className =
+            'guest-code' +
+            (isOtGuest(guest) ? ' guest-code-ot' : isNmGuest(guest) ? ' guest-code-nm' : '');
           codeEl.textContent = code;
-          codeEl.title = isNmGuest(guest) ? 'Kode Tamu Pria (Ngunduh Mantu)' : 'Kode Tamu (Akad Nikah)';
+          codeEl.title = isOtGuest(guest)
+            ? 'Kode Tamu OT (Orang Tua)'
+            : isNmGuest(guest)
+            ? 'Kode Tamu Pria (Ngunduh Mantu)'
+            : 'Kode Tamu (Akad Nikah)';
           nameEl.appendChild(codeEl);
         }
 

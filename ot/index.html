@@ -401,6 +401,8 @@
         <div class="letter-line"></div>
         <div class="closing-salute">Kami yang berbahagia</div>
         <div class="closing-sign">Naufal <span class="amp">&amp;</span> Shilvia</div>
+        <div class="closing-sign">Bpk. H. Taqwa Solichin <span class="amp">&amp;</span>Ibu Hj. Rita Ardiningsih</div>
+        <div class="closing-sign">Alm. Bpk. Purno Prihanto <span class="amp">&amp;</span> Ibu Sunarti</div>
         <div style="margin:.3rem 0 1.2rem;">Wassalamu'alaikum Wr. Wb.</div>
       </div>
     </section>
@@ -490,8 +492,39 @@
         metaTag("name", "twitter:image").setAttribute("content", META_IMAGE + uniqueParam);
       }
 
-      // Nama tamu = nilai ?to= langsung (otomatis ter-decode oleh URLSearchParams)
-      applyName(slug ? slug.replace(/\s+/g, " ").trim() : "");
+      // Nama tamu dari data/guests.json (fallback: nilai ?to= langsung)
+      // slug otomatis ter-decode oleh URLSearchParams
+      function slugify(s) {
+        return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+      }
+
+      function initGuestName() {
+        var fallback = slug ? slug.replace(/\s+/g, " ").trim() : "";
+        if (!slug) {
+          applyName("");
+          return;
+        }
+        fetch("../data/guests.json")
+          .then(function (r) {
+            return r.json();
+          })
+          .then(function (data) {
+            var guests = data && data.guests ? data.guests : [];
+            var guest = null;
+            for (var i = 0; i < guests.length; i++) {
+              if (guests[i].slug === slug || guests[i].slug === slugify(slug)) {
+                guest = guests[i];
+                break;
+              }
+            }
+            applyName(guest ? guest.name : fallback);
+          })
+          .catch(function () {
+            applyName(fallback);
+          });
+      }
+
+      initGuestName();
 
       // ===== Splash open =====
       var splash = document.getElementById("splash");
