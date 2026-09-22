@@ -21,7 +21,7 @@ const NM = [
   "Erika", "Ilham", "Khadafi", "Vina", "Ayu", "Huda", "Selamet", "Bagos",
   "Adib", "Gaga", "Nadim", "Adit", "Daus", "Nico", "Bayu", "Rangga",
   "Ravy", "Arip", "Ziya", "Bayu 36", "Lutfi", "Heri", "Farez", "Devi",
-  "Mimi", "Anisa", "Naufal Alfian", "Romi", "Dito", "Ifan","Arga",
+  "Mimi", "Anisa", "Naufal Alfian", "Romi", "Dito", "Ifan","Arga","Manarul", "Afif", "Zaenal", "Ulin", "Gilang"
 ];
 
 const OT = [
