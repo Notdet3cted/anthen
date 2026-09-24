@@ -18,7 +18,7 @@ const NM = [
   "Ova", "Andika", "Dika", "Abdullah", "Yudha", "Wahyu", "Ummi", "Fira",
   "Nurul", "Udin", "Angga Riski", "Ndulet", "Fajar P Charisma", "Putri",
   "Rochmach Nor Rosyidah", "Rizqy Prasetya", "Naim", "Ratih", "Lutvia",
-  "Erika", "Ilham", "Khadafi", "Vina", "Ayu", "Huda", "Selamet", "Bagos",
+  "Erika", "Ilham", "Khadafi", "Vina", "Ayu", "Risma S", "Yanis", "Huda", "Selamet", "Bagos",
   "Adib", "Gaga", "Nadim", "Adit", "Daus", "Nico", "Bayu", "Rangga",
   "Ravy", "Arip", "Ziya", "Bayu 36", "Lutfi", "Heri", "Farez", "Devi",
   "Mimi", "Anisa", "Naufal Alfian", "Romi", "Dito", "Ifan","Arga","Manarul", "Afif", "Zaenal", "Ulin", "Gilang"
@@ -28,7 +28,7 @@ const OT = [
   "Bp. Witono", "Bp. Yuli", "Bp. Mashadi", "Bp. Purnomo", "Bp. Roni",
   "Bp. Adi", "Bp. Anjar", "Bp. Suwadi", "Bp. Rury Damarjati", "Bp. Jalal",
   "Bp. Jazuli", "Bp. H. Yazid", "Bp. Supri", "Bp. Sugeng", "Bp. Hanafi",
-  "Ustad Mustofa", "Ustad Sayfiq", "Bp. Haris Yosodiningrat",
+  "Ustad Mustofa", "Ustad Syafiq", "Bp. Haris Yosodiningrat",
   "Bp. Yanto Bangsri", "Bp. H. Syafiq",
 ];
 
