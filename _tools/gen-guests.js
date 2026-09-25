@@ -149,6 +149,8 @@ const OT = [
   "Bp. Haris Yosodiningrat",
   "Bp. Yanto Bangsri",
   "Bp. H. Syafiq",
+  "Bp. H. Solikun",
+  "Bp. H. Abdurrahman",
 ];
 
 function titleCase(name) {

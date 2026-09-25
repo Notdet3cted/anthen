@@ -1111,6 +1111,22 @@
       "phone": "",
       "tp": "ot",
       "code": "OT-020"
+    },
+    {
+      "id": 140,
+      "slug": "bp-h-solikun",
+      "name": "Bp. H. Solikun",
+      "phone": "",
+      "tp": "ot",
+      "code": "OT-021"
+    },
+    {
+      "id": 141,
+      "slug": "bp-h-abdurrahman",
+      "name": "Bp. H. Abdurrahman",
+      "phone": "",
+      "tp": "ot",
+      "code": "OT-022"
     }
   ]
 }
