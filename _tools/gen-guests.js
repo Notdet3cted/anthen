@@ -65,6 +65,8 @@ const AKAD = [
   "Anisa",
   "Nailil",
   "Alba",
+  "Roya",
+  "Sindy"
 ];
 
 const NM = [
