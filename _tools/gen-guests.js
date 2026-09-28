@@ -66,7 +66,7 @@ const AKAD = [
   "Nailil",
   "Alba",
   "Roya",
-  "Sindy"
+  "Sindy",
 ];
 
 const NM = [
@@ -93,8 +93,9 @@ const NM = [
   "Ilham",
   "Khadafi",
   "Vina",
-  "Ayu",
+  "Ayu 8A",
   "Risma S",
+  "Bila 8A",
   "Yanis",
   "Huda",
   "Selamet",
