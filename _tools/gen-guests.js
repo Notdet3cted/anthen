@@ -155,6 +155,9 @@ const OT = [
   "Bp. H. Syafiq",
   "Bp. H. Solikun",
   "Bp. H. Abdurrahman",
+  "Bp. H. Qomaruddin",
+  "Bp. H. Ali Mukidin",
+  "Bp. H. Fatah",
 ];
 
 function titleCase(name) {
