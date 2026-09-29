@@ -120,6 +120,7 @@ const NM = [
   "Anisa",
   "Naufal Alfian",
   "Romi",
+  "Taufik TI",
   "Dito",
   "Ifan",
   "Arga",
